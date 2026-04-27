@@ -102,19 +102,23 @@ nav{
   display:flex;flex-direction:column;
   position:relative;
   overflow:hidden;
+  isolation:isolate;
   background:linear-gradient(180deg, rgba(196,224,223,0.55) 0%, var(--cream) 52%);
   border-bottom:1px solid rgba(46,139,134,0.14);
 }
 .hero-figure{
   position:absolute;
-  right:6%;
-  top:50%;
-  transform:translateY(-50%);
-  width:clamp(120px,16vw,220px);
+  top:58%;
+  left:74%;
+  transform:translate(-50%,-50%) scale(1.08);
+  width:clamp(160px,22vw,300px);
+  max-width:42vw;
+  max-height:68%;
   height:auto;
-  opacity:0.9;
+  opacity:0.62;
   pointer-events:none;
   z-index:0;
+  mix-blend-mode:multiply;
 }
 .hero-text{
   padding:4rem 3.5rem 3rem;
@@ -122,11 +126,16 @@ nav{
   position:relative;
   z-index:1;
 }
+.hero-img{position:relative;z-index:1;}
 @media(max-width:900px){
   .hero-figure{
-    right:4%;
-    width:clamp(90px,22vw,160px);
-    opacity:0.85;
+    left:72%;
+    top:50%;
+    transform:translate(-50%,-50%) scale(1.04);
+    width:clamp(110px,26vw,190px);
+    max-width:46vw;
+    max-height:52%;
+    opacity:0.6;
   }
 }
 @media(max-width:560px){
@@ -425,10 +434,11 @@ nav{
 }
 .cal-day:not(.empty):not(.past):hover{border-color:rgba(46,139,134,0.35);color:var(--dark);background:rgba(196,224,223,0.45);}
 .cal-day.active{background:var(--gold);color:var(--dark);border-color:var(--gold);}
-.cal-day.has-slot{position:relative;}
+.cal-day.today{border-color:var(--teal);color:var(--teal);font-weight:600;}
+.cal-day.has-slot{position:relative;background:rgba(196,224,223,0.35);color:var(--dark);}
 .cal-day.has-slot::after{
   content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);
-  width:4px;height:4px;border-radius:50%;background:var(--gold);
+  width:5px;height:5px;border-radius:50%;background:var(--gold);
 }
 .cal-day.active.has-slot::after{background:var(--dark);}
 .cal-day.past{opacity:0.2;cursor:default;}
@@ -455,6 +465,21 @@ nav{
 .badge.b-new{background:var(--gold);color:var(--dark);}
 .badge.b-info{background:var(--teal);color:var(--white);}
 .badge.b-cancel{background:#C04040;color:var(--white);}
+
+/* ── BACK TO TOP ── */
+.back-to-top{
+  position:fixed;bottom:2rem;right:2rem;z-index:200;
+  width:44px;height:44px;border-radius:50%;
+  background:var(--gold);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(0,0,0,0.18);
+  opacity:0;pointer-events:none;
+  transition:opacity 0.35s ease, transform 0.35s ease, background 0.2s;
+  transform:translateY(10px);
+}
+.back-to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+.back-to-top:hover{background:var(--gold-light);}
+.back-to-top svg{display:block;}
 
 /* ── FOOTER ── */
 footer{
@@ -511,7 +536,7 @@ footer{
 
 <!-- HERO -->
 <div class="hero">
-  <img class="hero-figure" src="assets/images/hero-figure.png" alt="" aria-hidden="true">
+  <img class="hero-figure" src="assets/images/pilates-esra-font.png" alt="" aria-hidden="true">
   <div class="hero-text">
     <div class="eyebrow" data-tr="Pilates · HIIT · Stretching · Mobility" data-fr="Pilates · HIIT · Étirements · Mobilité">Pilates · HIIT · Stretching · Mobility</div>
     <h1 class="hero-title">
@@ -592,12 +617,12 @@ footer{
 
 <!-- CLASSES -->
 <section id="classes" class="sec classes-sec">
-  <div class="sec-label" data-tr="Ders Türleri" data-fr="Types de Cours">Ders Türleri</div>
-  <div class="sec-title" data-tr="Ne Sunuyorum?" data-fr="Ce que je propose">Ne Sunuyorum?</div>
+  <div class="sec-label reveal" data-tr="Ders Türleri" data-fr="Types de Cours">Ders Türleri</div>
+  <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Ne Sunuyorum?" data-fr="Ce que je propose">Ne Sunuyorum?</div>
   <div class="class-cards">
 
     <!-- 1 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:0ms">
       <div class="class-img pilates">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <circle cx="22" cy="13" r="7" stroke="white" stroke-width="1.3"/>
@@ -615,7 +640,7 @@ footer{
     </div>
 
     <!-- 2 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:80ms">
       <div class="class-img pilates">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <circle cx="22" cy="13" r="7" stroke="white" stroke-width="1.3"/>
@@ -633,7 +658,7 @@ footer{
     </div>
 
     <!-- 3 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:160ms">
       <div class="class-img pilates" style="background:#1A5450;">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <rect x="8" y="28" width="28" height="4" rx="1" stroke="white" stroke-width="1.2"/>
@@ -651,7 +676,7 @@ footer{
     </div>
 
     <!-- 4 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:240ms">
       <div class="class-img pilates" style="background:#1A5450;">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <rect x="8" y="28" width="28" height="4" rx="1" stroke="white" stroke-width="1.2"/>
@@ -669,7 +694,7 @@ footer{
     </div>
 
     <!-- 5 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:0ms">
       <div class="class-img hiit">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <path d="M6 22 L14 8 L22 28 L28 14 L38 22" stroke="white" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
@@ -685,7 +710,7 @@ footer{
     </div>
 
     <!-- 6 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:80ms">
       <div class="class-img" style="background:#2A5C5A;">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <path d="M10 32 Q14 20 22 18 Q30 16 34 28" stroke="white" stroke-width="1.3" fill="none"/>
@@ -703,7 +728,7 @@ footer{
     </div>
 
     <!-- 7 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:160ms">
       <div class="class-img kuvvet">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <rect x="4" y="19" width="8" height="6" rx="1" stroke="white" stroke-width="1.2"/>
@@ -722,7 +747,7 @@ footer{
     </div>
 
     <!-- 8 -->
-    <div class="class-card">
+    <div class="class-card reveal reveal--zoom" style="--reveal-d:240ms">
       <div class="class-img" style="background:#234E4C;">
         <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
           <circle cx="22" cy="22" r="10" stroke="white" stroke-width="1.2"/>
@@ -747,9 +772,9 @@ footer{
 
 <!-- EDUCATION -->
 <section id="education" class="sec education">
-  <div class="sec-label" data-tr="Aldığım Eğitimler" data-fr="Mes Formations">Aldığım Eğitimler</div>
-  <div class="sec-title" data-tr="Eğitim & Sertifikalar" data-fr="Formation & Certifications">Eğitim & Sertifikalar</div>
-  <p class="sec-body"
+  <div class="sec-label reveal" data-tr="Aldığım Eğitimler" data-fr="Mes Formations">Aldığım Eğitimler</div>
+  <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Eğitim & Sertifikalar" data-fr="Formation & Certifications">Eğitim & Sertifikalar</div>
+  <p class="sec-body reveal" style="--reveal-d:160ms"
      data-tr="Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım. Her sertifika, size en doğru, en güvenli ve en etkili antrenmanı sunmam için birer temel taşıdır."
      data-fr="Animée par la conviction de se former en continu, j'ai complété des formations reconnues aux niveaux national et international. Chaque certification est une pierre fondatrice pour vous offrir un entraînement juste, sûr et efficace.">
     Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım.
@@ -757,19 +782,19 @@ footer{
   <!-- Sertifikalar -->
   <div class="edu-sub-label" data-tr="Sertifikalar" data-fr="Certifications">Sertifikalar</div>
   <div class="edu-grid">
-    <div class="edu-card">
+    <div class="edu-card reveal reveal--left" style="--reveal-d:0ms">
       <div class="yr">2026</div>
       <div class="ttl">CQP ALS AGEE</div>
       <div class="desc">Certificat de Qualification Professionnelle mention Animateur de Loisir Sportif option Activités Gymniques d'Entretien et d'Expression</div>
     </div>
-    <div class="edu-card">
+    <div class="edu-card reveal reveal--right" style="--reveal-d:120ms">
       <div class="ttl">Polestar Pilates</div>
       <div class="desc" data-tr="Polestar Pilates Comprehensive Pilates Instructor sertifikası." data-fr="Certification Polestar Pilates Comprehensive Pilates Instructor.">Polestar Pilates Comprehensive Pilates Instructor</div>
     </div>
   </div>
-  <div class="cert-imgs">
-    <img src="assets/images/WhatsApp Image 2026-03-26 at 23.40.26.jpeg" alt="Sertifika 1" onclick="openLightbox(this)">
-    <img src="assets/images/WhatsApp Image 2026-03-26 at 23.40.26 (1).jpeg" alt="Sertifika 2" onclick="openLightbox(this)">
+  <div class="cert-imgs reveal" style="--reveal-d:80ms">
+    <img src="assets/images/sertifika1.jpeg" alt="Sertifika 1" onclick="openLightbox(this)">
+    <img src="assets/images/sertifika2.jpeg" alt="Sertifika 2" onclick="openLightbox(this)">
   </div>
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" onclick="closeLightbox()">
@@ -780,7 +805,7 @@ footer{
   <!-- Katıldığı Eğitimler -->
   <div class="edu-sub-label" data-tr="Katıldığım Eğitimler" data-fr="Formations Suivies">Katıldığım Eğitimler</div>
 
-  <div class="edu-list-block">
+  <div class="edu-list-block reveal" style="--reveal-d:0ms">
     <div class="block-title" data-tr="Quadroathletics Sertifikalı Eğitimleri" data-fr="Formations Certifiées Quadroathletics">Quadroathletics Sertifikalı Eğitimleri</div>
     <ul class="edu-list two-col">
       <!-- Sol sütun: 4 -->
@@ -797,7 +822,7 @@ footer{
     </ul>
   </div>
 
-  <div class="edu-list-block">
+  <div class="edu-list-block reveal" style="--reveal-d:80ms">
     <div class="block-title" data-tr="Hareket Uzmanları Platformu Sertifikalı Eğitimleri" data-fr="Formations Certifiées — Plateforme des Experts du Mouvement">Hareket Uzmanları Platformu Sertifikalı Eğitimleri</div>
     <ul class="edu-list two-col">
       <li>Kifotik postür ve egzersiz stratejileri<span class="instr">Master Trainer Gizem Özcan — VOB Pilates Academy</span></li>
@@ -818,9 +843,9 @@ footer{
 
 <!-- PLANNING -->
 <section id="planning" class="sec planning-sec">
-  <div class="sec-label" data-tr="Haftalık Takvim" data-fr="Planning Hebdomadaire">Haftalık Takvim</div>
-  <div class="sec-title" data-tr="Ders Programı" data-fr="Calendrier des Cours">Ders Programı</div>
-  <div class="week-grid">
+  <div class="sec-label reveal" data-tr="Haftalık Takvim" data-fr="Planning Hebdomadaire">Haftalık Takvim</div>
+  <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Ders Programı" data-fr="Calendrier des Cours">Ders Programı</div>
+  <div class="week-grid reveal" style="--reveal-d:160ms">
     <div class="day-col">
       <div class="day-hdr" data-tr="Pazartesi" data-fr="Lundi">Pazartesi</div>
       <div class="cls"><div class="t">09:00</div>Pilates</div>
@@ -856,9 +881,9 @@ footer{
 
 <!-- RESERVATION -->
 <section id="reservation" class="sec reservation-sec">
-  <div class="sec-label" data-tr="Online Randevu" data-fr="Réservation en Ligne">Online Randevu</div>
-  <div class="sec-title" data-tr="Ders Rezervasyonu" data-fr="Réservez votre cours">Ders Rezervasyonu</div>
-  <div class="resa-grid">
+  <div class="sec-label reveal" data-tr="Online Randevu" data-fr="Réservation en Ligne">Online Randevu</div>
+  <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Ders Rezervasyonu" data-fr="Réservez votre cours">Ders Rezervasyonu</div>
+  <div class="resa-grid reveal" style="--reveal-d:160ms">
     <!-- LEFT: form -->
     <div>
       <div class="form-grp">
@@ -947,9 +972,9 @@ footer{
 
 <!-- ANNOUNCEMENTS -->
 <section id="announcements" class="sec ann-sec">
-  <div class="sec-label" data-tr="Güncellemeler" data-fr="Actualités">Güncellemeler</div>
-  <div class="sec-title" data-tr="Duyurular" data-fr="Annonces">Duyurular</div>
-  <div class="ann-grid">
+  <div class="sec-label reveal" data-tr="Güncellemeler" data-fr="Actualités">Güncellemeler</div>
+  <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Duyurular" data-fr="Annonces">Duyurular</div>
+  <div class="ann-grid reveal" style="--reveal-d:160ms">
     <div class="ann-card ann-new">
       <div class="ann-date" data-tr="25 Mart 2026" data-fr="25 Mars 2026">25 Mart 2026</div>
       <div class="ann-title">
@@ -997,6 +1022,13 @@ footer{
     </div>
   </div>
 </section>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="scrollTopPage()" aria-label="Başa dön">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"/>
+  </svg>
+</button>
 
 <!-- FOOTER -->
 <footer>
@@ -1181,9 +1213,14 @@ function renderCal() {
     const hasSl  = availDays[mo] && availDays[mo].includes(d);
     const isPast = new Date(cur.getFullYear(), cur.getMonth(), d) < todayMidnight;
 
+    const isToday = cur.getFullYear() === today.getFullYear() &&
+                    cur.getMonth() === today.getMonth() &&
+                    d === today.getDate();
+
     let cls = 'cal-day';
-    if (hasSl)  cls += ' has-slot';
-    if (isPast) cls += ' past';
+    if (hasSl)   cls += ' has-slot';
+    if (isPast)  cls += ' past';
+    if (isToday) cls += ' today';
     e.className = cls;
     e.textContent = d;
 
@@ -1288,6 +1325,7 @@ async function confirmer() {
 (function() {
   const slider = document.querySelector('.hero-slider');
   const container = document.querySelector('.hero-img');
+  if (!slider || !container) return;
   let isDragging = false, startX = 0, scrollLeft = 0;
 
   container.addEventListener('mousedown', e => {
@@ -1310,7 +1348,6 @@ async function confirmer() {
     const x = e.pageX - container.offsetLeft;
     container.scrollLeft = scrollLeft - (x - startX);
   });
-  // overflow ayarı
   container.style.overflowX = 'auto';
   container.style.scrollbarWidth = 'none';
   container.style.msOverflowStyle = 'none';
@@ -1326,6 +1363,28 @@ function closeLightbox() {
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
+
+// ── BACK TO TOP VISIBILITY ───────────────────────────────
+(function () {
+  const btn = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+})();
+
+// ── SCROLL REVEAL OBSERVER ───────────────────────────────
+(function () {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+})();
 
 // ── INIT ─────────────────────────────────────────────────
 renderCal();
