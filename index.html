@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PilatesEsra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/lenis.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --teal-dark:#1d8784;
+  --teal:#2E8B86;
+  --teal-mid:#3A9E99;
+  --teal-pale:#C4E0DF;
+  --gold:#C09040;
+  --gold-light:#D4AA62;
+  --gold-pale:#F0E4C8;
+  --cream:#F5F0E8;
+  --beige:#EAE0D0;
+  --sand:#D0BEA0;
+  --dark:#142826;
+  --text:#2A3A39;
+  --white:#FFFFFF;
+  --divider:rgba(46,139,134,0.1);
+}
+
+html{scroll-padding-top:4.75rem;}
+@media (prefers-reduced-motion:no-preference){
+  html:not(.lenis){scroll-behavior:smooth;}
+}
+html.lenis,html.lenis body{height:auto;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);}
+
+.sec{border-top:1px solid var(--divider);}
+.sec:first-of-type{border-top:none;}
+
+/* ── SCROLL REVEAL ── */
+.reveal{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity 0.95s cubic-bezier(0.33,0.55,0.25,1), transform 0.95s cubic-bezier(0.33,0.55,0.25,1);
+  transition-delay:var(--reveal-d, 0ms);
+}
+.reveal.is-visible{opacity:1;transform:none;}
+.sec-label.reveal,
+.sec-title.reveal,
+.edu-sub-label.reveal,
+.hero .eyebrow.reveal,
+.hero-title.reveal{
+  transform:translateY(8px);
+  transition:opacity 1.28s cubic-bezier(0.22,0.65,0.32,1), transform 1.28s cubic-bezier(0.22,0.65,0.32,1);
+}
+.hero .btn.reveal{
+  transform:translateY(12px);
+  transition:opacity 1.08s cubic-bezier(0.25,0.6,0.35,1), transform 1.08s cubic-bezier(0.25,0.6,0.35,1);
+}
+.reveal.reveal--left{transform:translate3d(-22px,16px,0);}
+.reveal.reveal--right{transform:translate3d(22px,16px,0);}
+.reveal.reveal--zoom{transform:scale(0.985) translateY(10px);}
+.reveal.reveal--zoom.is-visible{transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .reveal,.reveal.reveal--left,.reveal.reveal--right,.reveal.reveal--zoom{
+    opacity:1;transform:none;transition:none;
+  }
+}
+
+/* ── NAV ── */
+nav{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:1rem 2.5rem;background:var(--dark);
+  position:sticky;top:0;z-index:100;
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;font-size:22px;
+  color:var(--cream);letter-spacing:3px;font-style:italic;
+}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:1.4rem;align-items:center;}
+.nav-links a{
+  color:var(--sand);font-size:11px;text-decoration:none;
+  letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--cream);}
+.lang-toggle{
+  display:flex;margin-left:1rem;
+  border:1px solid rgba(192,144,64,0.4);border-radius:3px;overflow:hidden;
+}
+.lang-btn{
+  padding:0.3rem 0.65rem;font-size:11px;font-weight:500;letter-spacing:1px;
+  background:transparent;color:var(--sand);border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:all 0.2s;
+}
+.lang-btn.active{background:var(--gold);color:var(--dark);}
+.nav-insta{color:rgba(208,190,160,0.5);display:flex;align-items:center;transition:color 0.2s;}
+.nav-insta:hover{color:var(--gold);}
+
+/* ── HERO ── */
+.hero{
+  display:flex;flex-direction:column;
+  background:linear-gradient(180deg, rgba(196,224,223,0.55) 0%, var(--cream) 52%);
+  border-bottom:1px solid rgba(46,139,134,0.14);
+}
+.hero-text{
+  padding:4rem 3.5rem 3rem;
+  display:flex;flex-direction:column;align-items:flex-start;
+}
+.hero-img{
+  overflow-x:auto;overflow-y:hidden;
+  background:var(--cream);scrollbar-width:none;-ms-overflow-style:none;
+}
+.hero-img::-webkit-scrollbar{display:none;}
+.hero-slider{display:flex;width:max-content;animation:slide 32s linear infinite;cursor:grab;}
+.hero-slider.dragging{animation-play-state:paused;cursor:grabbing;}
+.hero-slider:hover{animation-play-state:paused;}
+.hero-slider img{height:300px;width:auto;object-fit:contain;flex-shrink:0;opacity:0.95;pointer-events:none;display:block;}
+.slider-brand{
+  display:flex;align-items:center;padding:0 3rem;flex-shrink:0;
+  font-family:'Cormorant Garamond',serif;font-size:52px;font-style:italic;
+  color:rgba(27,94,92,0.14);letter-spacing:4px;white-space:nowrap;
+}
+.slider-brand span{color:rgba(192,144,64,0.4);}
+@keyframes slide{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:1rem;}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;font-size:56px;line-height:1.05;
+  color:var(--dark);margin-bottom:1.2rem;
+}
+.hero-title em{color:var(--gold);font-style:italic;}
+.hero-sub{font-size:14px;color:var(--text);line-height:1.9;margin-bottom:2rem;opacity:0.88;max-width:420px;}
+.btn{
+  display:inline-block;padding:0.8rem 2rem;background:var(--gold);
+  color:var(--dark);font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  border:none;cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:background 0.2s;align-self:flex-start;text-decoration:none;border-radius:2px;
+}
+.btn:hover{background:var(--gold-light);}
+
+/* ── SECTION COMMON ── */
+.sec{padding:4rem 2.5rem;}
+.sec-label{font-size:13px;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem;}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--dark);margin-bottom:1rem;line-height:1.15;}
+.sec-body{font-size:14px;line-height:1.9;color:var(--text);max-width:680px;}
+
+/* ── ABOUT ── */
+.about{
+  display:grid;grid-template-columns:1fr 1.5fr;gap:0;
+  border-top:1px solid var(--divider);
+  border-bottom:1px solid var(--divider);
+}
+.about-photo{
+  background:var(--cream);display:flex;align-items:center;
+  justify-content:center;min-height:520px;overflow:hidden;position:relative;
+  isolation:isolate;
+  border-radius:14px;
+  margin:0.85rem 0 0.85rem 0.85rem;
+}
+@media(max-width:900px){
+  .about-photo{
+    margin:1rem 1rem 0 1rem;
+    border-radius:14px 14px 0 0;
+    min-height:300px;
+  }
+}
+.about-photo::before{
+  content:'';
+  position:absolute;inset:0;
+  background:url('about-bg.png') center/cover no-repeat;
+  opacity:1;
+  pointer-events:none;
+  z-index:0;
+}
+.about-photo img{display:none;}
+.about-photo .ph{
+  width:100%;height:100%;min-height:520px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:1rem;
+}
+.about-photo .ph svg{opacity:0.18;}
+.about-photo .ph p{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.about-content{padding:4rem 4rem;display:flex;flex-direction:column;justify-content:center;background:var(--cream);}
+.about-content .about-brand{
+  font-family:'Cormorant Garamond',serif;font-size:22px;font-style:italic;
+  letter-spacing:3px;color:var(--dark);
+}
+.about-content .about-brand span{color:var(--gold);}
+.about-why{
+  margin-top:1.35rem;
+  background:var(--white);
+  border:1px solid rgba(46,139,134,0.14);
+  border-radius:8px;
+  padding:1.25rem 1.35rem;
+  box-shadow:0 2px 16px rgba(20,40,38,0.05);
+}
+.about-why-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;
+  color:var(--dark);
+  margin-bottom:0.75rem;
+  line-height:1.15;
+}
+.about-why-list{list-style:none;display:flex;flex-direction:column;gap:0.75rem;margin:0;padding:0;}
+.about-why-list li{position:relative;padding-left:1.1rem;}
+.about-why-list li::before{content:'—';position:absolute;left:0;top:0.05rem;color:var(--teal);opacity:0.75;}
+.about-why-list strong{display:block;font-size:13px;letter-spacing:0.2px;color:var(--dark);margin-bottom:0.15rem;}
+.about-why-list span{display:block;font-size:13px;line-height:1.7;color:var(--text);opacity:0.9;}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.5rem;}
+.tag{
+  padding:5px 14px;border:1px solid var(--teal);
+  color:var(--teal);font-size:11px;letter-spacing:1px;text-transform:uppercase;border-radius:2px;
+}
+
+/* ── EDUCATION ── */
+.education{background:var(--cream);}
+.education .sec-label{color:var(--teal);}
+.education .sec-title{color:var(--dark);}
+.education .sec-body{color:var(--text);}
+.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2rem;}
+.edu-card{
+  background:var(--white);border:1px solid rgba(46,139,134,0.15);
+  border-radius:4px;padding:1.5rem;border-left:3px solid var(--teal);
+  box-shadow:0 2px 14px rgba(20,40,38,0.05);
+}
+.edu-card .yr{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:0.5rem;}
+.edu-card .ttl{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--dark);margin-bottom:0.4rem;}
+.edu-card .desc{font-size:13px;color:var(--text);line-height:1.7;opacity:0.9;}
+.edu-sub-label{
+  font-size:13px;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;color:var(--teal);
+  margin:2.5rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(46,139,134,0.18);
+}
+.edu-list-block{
+  background:var(--white);border:1px solid rgba(46,139,134,0.12);
+  border-radius:4px;padding:1.5rem 1.8rem;margin-bottom:1rem;
+  box-shadow:0 1px 10px rgba(20,40,38,0.04);
+}
+.edu-list-block .block-title{
+  font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--dark);margin-bottom:1rem;
+}
+.edu-list{list-style:none;display:flex;flex-direction:column;gap:0.55rem;}
+.edu-list.two-col{display:grid;grid-template-columns:1fr 1fr;gap:0.55rem 2rem;}
+.edu-list li{
+  font-size:13px;color:var(--text);line-height:1.6;
+  padding-left:1.2rem;position:relative;opacity:0.92;
+}
+.edu-list li::before{
+  content:'—';position:absolute;left:0;color:var(--teal);font-size:11px;top:1px;opacity:0.7;
+}
+.edu-list li .instr{color:var(--sand);font-size:11px;display:block;margin-top:1px;}
+.edu-list li.no-cert{color:var(--sand);font-style:italic;}
+.edu-list li.no-cert::before{color:rgba(46,139,134,0.35);}
+.cert-imgs{display:flex;gap:1rem;margin-top:1.2rem;flex-wrap:wrap;justify-content:center;}
+.cert-imgs img{height:160px;width:auto;border-radius:4px;border:1px solid rgba(46,139,134,0.18);object-fit:contain;background:var(--white);cursor:zoom-in;transition:opacity 0.2s;}
+.cert-imgs img:hover{opacity:0.85;}
+/* Lightbox */
+.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:999;align-items:center;justify-content:center;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:6px;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,0.6);}
+.lightbox-close{position:absolute;top:1.2rem;right:1.5rem;font-size:28px;color:var(--sand);cursor:pointer;line-height:1;background:none;border:none;transition:color 0.2s;}
+.lightbox-close:hover{color:var(--white);}
+
+/* ── CLASSES ── */
+.classes-sec{
+  background:var(--beige);
+  overflow:visible;
+  border-top:1px solid var(--divider);
+}
+.class-cards{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2rem;
+  margin-left:-16px;margin-right:-16px;
+  padding:14px 22px 32px;
+  box-sizing:border-box;
+  overflow:visible;
+}
+@media(max-width:1100px){.class-cards{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:600px){
+  .class-cards{
+    grid-template-columns:1fr;
+    margin-left:-10px;margin-right:-10px;
+    padding:12px 14px 28px;
+  }
+}
+.class-card{
+  background:var(--white);border-radius:4px;overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,0.07);
+  border:1px solid rgba(46,139,134,0.08);
+  position:relative;
+  z-index:0;
+  transition:transform 0.38s cubic-bezier(0.34,1.15,0.64,1), box-shadow 0.38s ease, border-color 0.38s ease, filter 0.38s ease;
+}
+.class-card:hover{
+  z-index:5;
+  border-color:rgba(46,139,134,0.5);
+  box-shadow:
+    0 22px 48px rgba(27,94,92,0.18),
+    0 12px 28px rgba(0,0,0,0.1),
+    0 0 0 1px rgba(46,139,134,0.12);
+  filter:brightness(1.02);
+}
+@media (prefers-reduced-motion:no-preference){
+  .class-card:hover{
+    transform:translateY(-14px) scale(1.055);
+  }
+}
+.class-img{height:150px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;}
+.class-img.pilates{background:var(--teal-dark);}
+.class-img.hiit{background:#1F4A48;}
+.class-img.kuvvet{background:#163535;}
+.class-img svg{opacity:0.22;}
+.class-img p{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.25);}
+.class-body{padding:1.5rem;}
+.class-name{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--dark);margin-bottom:0.5rem;}
+.class-desc{font-size:13px;color:var(--text);line-height:1.7;margin-bottom:1rem;}
+.class-meta{display:flex;gap:0.8rem;align-items:center;}
+.class-meta span{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--teal);}
+.class-meta .dot{color:var(--sand);}
+
+/* ── PLANNING ── */
+.planning-sec{background:var(--beige);border-top:1px solid var(--divider);}
+.week-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:2rem;}
+.day-col{display:flex;flex-direction:column;gap:6px;}
+.day-hdr{
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);
+  text-align:center;padding:0.5rem 0;border-bottom:1px solid rgba(46,139,134,0.3);margin-bottom:2px;
+}
+.cls{
+  background:var(--teal-dark);color:var(--cream);border-radius:3px;
+  padding:0.6rem 0.5rem;text-align:center;font-size:11px;line-height:1.5;
+}
+.cls .t{color:var(--gold);font-size:10px;letter-spacing:1px;}
+.cls.hiit-c{background:#1F4A48;}
+.cls.kuvvet-c{background:#163535;}
+.cls-empty{border:1px dashed rgba(46,139,134,0.18);border-radius:3px;min-height:52px;}
+
+/* ── RESERVATION ── */
+.reservation-sec{background:var(--cream);}
+.reservation-sec .sec-label{color:var(--teal);}
+.reservation-sec .sec-title{color:var(--dark);}
+.resa-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;}
+.form-grp{display:flex;flex-direction:column;gap:5px;margin-bottom:0.9rem;}
+.flbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);}
+.finp,.fsel{
+  background:var(--white);border:1px solid rgba(46,139,134,0.18);
+  color:var(--dark);padding:0.7rem 1rem;font-family:'DM Sans',sans-serif;
+  font-size:13px;border-radius:2px;width:100%;
+}
+.finp::placeholder{color:rgba(42,58,57,0.45);}
+.fsel option{background:var(--white);color:var(--dark);}
+.slots-area{margin-top:0.2rem;}
+.slots-lbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:0.6rem;}
+.slots-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:1.2rem;}
+.slot-btn{
+  padding:0.5rem 1rem;border:1px solid rgba(46,139,134,0.22);
+  color:rgba(27,94,92,0.92);font-size:12px;cursor:pointer;border-radius:2px;
+  background:var(--white);font-family:'DM Sans',sans-serif;transition:all 0.2s;
+}
+.slot-btn:hover,.slot-btn.on{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+.slot-full{
+  padding:0.5rem 1rem;border:1px solid rgba(46,139,134,0.16);
+  color:rgba(42,58,57,0.45);font-size:12px;border-radius:2px;font-style:italic;
+  font-family:'DM Sans',sans-serif;
+}
+.confirm-box{
+  background:var(--white);border:1px solid rgba(46,139,134,0.14);
+  border-radius:3px;padding:1.2rem;
+  box-shadow:0 2px 14px rgba(20,40,38,0.05);
+}
+.confirm-row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid rgba(46,139,134,0.08);}
+.confirm-row:last-of-type{border-bottom:none;}
+.confirm-row .lbl{color:var(--teal);}
+.confirm-row .val{color:var(--dark);}
+.btn-confirm{
+  width:100%;margin-top:1rem;padding:0.85rem;background:var(--gold);
+  color:var(--dark);border:none;font-family:'DM Sans',sans-serif;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  border-radius:2px;transition:background 0.2s;
+}
+.btn-confirm:hover{background:var(--gold-light);}
+
+/* Calendar */
+.calendar{
+  background:var(--white);border:1px solid rgba(46,139,134,0.14);
+  border-radius:4px;padding:1.5rem;
+  box-shadow:0 2px 14px rgba(20,40,38,0.05);
+}
+.cal-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;}
+.cal-month{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--dark);}
+.cal-nav{background:transparent;border:none;color:var(--teal);cursor:pointer;font-size:20px;padding:0 6px;transition:color 0.2s;}
+.cal-nav:hover{color:var(--gold);}
+.cal-days-hdr{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px;}
+.cal-dh{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(46,139,134,0.55);text-align:center;padding:2px 0;}
+.cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-day{
+  aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:rgba(42,58,57,0.72);cursor:pointer;border-radius:3px;
+  border:1px solid transparent;transition:all 0.15s;
+}
+.cal-day:not(.empty):not(.past):hover{border-color:rgba(46,139,134,0.35);color:var(--dark);background:rgba(196,224,223,0.45);}
+.cal-day.active{background:var(--gold);color:var(--dark);border-color:var(--gold);}
+.cal-day.has-slot{position:relative;}
+.cal-day.has-slot::after{
+  content:'';position:absolute;bottom:3px;left:50%;transform:translateX(-50%);
+  width:4px;height:4px;border-radius:50%;background:var(--gold);
+}
+.cal-day.active.has-slot::after{background:var(--dark);}
+.cal-day.past{opacity:0.2;cursor:default;}
+.cal-day.empty{cursor:default;}
+
+/* ── ANNOUNCEMENTS ── */
+.ann-sec{background:var(--beige);}
+.ann-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2rem;}
+.ann-card{
+  background:var(--white);border-radius:4px;padding:1.5rem;
+  border-left:3px solid var(--teal);box-shadow:0 1px 10px rgba(0,0,0,0.06);
+}
+.ann-card.ann-new{border-left-color:var(--gold);}
+.ann-card.ann-cancel{border-left-color:#C04040;}
+.ann-date{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:0.4rem;}
+.ann-card.ann-new .ann-date{color:var(--gold);}
+.ann-card.ann-cancel .ann-date{color:#C04040;}
+.ann-title{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--dark);margin-bottom:0.5rem;}
+.ann-body{font-size:13px;color:var(--text);line-height:1.7;}
+.badge{
+  display:inline-block;font-size:9px;letter-spacing:1px;text-transform:uppercase;
+  padding:2px 8px;border-radius:2px;margin-left:6px;vertical-align:middle;
+}
+.badge.b-new{background:var(--gold);color:var(--dark);}
+.badge.b-info{background:var(--teal);color:var(--white);}
+.badge.b-cancel{background:#C04040;color:var(--white);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--dark);padding:2rem 2.5rem;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
+}
+.f-logo{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-style:italic;letter-spacing:2px;}
+.f-logo span{color:var(--cream);}
+.f-links{display:flex;gap:1.5rem;}
+.f-links a{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:rgba(208,190,160,0.45);text-decoration:none;cursor:pointer;transition:color 0.2s;}
+.f-links a:hover{color:var(--sand);}
+.f-insta{display:flex;align-items:center;gap:5px !important;color:rgba(208,190,160,0.6) !important;}
+.f-insta:hover{color:var(--gold) !important;}
+.insta-link{display:inline-flex;align-items:center;gap:6px;color:var(--teal);font-size:13px;text-decoration:none;margin-bottom:1rem;transition:color 0.2s;}
+.insta-link:hover{color:var(--gold);}
+.f-copy{font-size:11px;color:rgba(192,144,64,0.3);letter-spacing:1px;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .hero-text{padding:2.5rem 1.5rem 2rem;}
+  .about{grid-template-columns:1fr;}
+  .edu-grid{grid-template-columns:1fr;}
+  .class-cards{grid-template-columns:1fr;}
+  .week-grid{grid-template-columns:repeat(3,1fr);}
+  .resa-grid{grid-template-columns:1fr;}
+  .ann-grid{grid-template-columns:1fr;}
+  nav{flex-wrap:wrap;gap:0.8rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo" onclick="scrollTopPage()" title="Başa dön">Pilates<span>Esra</span></div>
+  <div class="nav-links">
+    <a href="#about" class="nav-lnk" onclick="go('about',event)" data-tr="Esra Kimdir"  data-fr="Qui est Esra">Esra Kimdir</a>
+    <a href="#education" class="nav-lnk" onclick="go('education',event)" data-tr="Eğitimler"    data-fr="Formations">Eğitimler</a>
+    <a href="#classes" class="nav-lnk" onclick="go('classes',event)" data-tr="Dersler"      data-fr="Cours">Dersler</a>
+    <a href="#planning" class="nav-lnk" onclick="go('planning',event)" data-tr="Program"      data-fr="Planning">Program</a>
+    <a href="#reservation" class="nav-lnk" onclick="go('reservation',event)" data-tr="Randevu Al"   data-fr="Réserver">Randevu Al</a>
+    <a href="#announcements" class="nav-lnk" onclick="go('announcements',event)" data-tr="Duyurular"   data-fr="Annonces">Duyurular</a>
+    <a href="https://www.instagram.com/pilatesesra/" target="_blank" rel="noopener" class="nav-insta" title="Instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('tr')">TR</button>
+      <button class="lang-btn"        onclick="setLang('fr')">FR</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="eyebrow" data-tr="Pilates · HIIT · Stretching · Mobility" data-fr="Pilates · HIIT · Étirements · Mobilité">Pilates · HIIT · Stretching · Mobility</div>
+    <h1 class="hero-title">
+      <span data-tr="Hareket et, güçlen," data-fr="Bougez, renforcez-vous,">Hareket et, güçlen,</span><br>
+      <em data-tr="dönüş." data-fr="transformez-vous.">dönüş.</em>
+    </h1>
+    <button class="btn" onclick="go('reservation')"
+            data-tr="Randevu Al" data-fr="Réserver une séance">Randevu Al</button>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about" class="about">
+  <div class="about-photo reveal reveal--left" style="--reveal-d:0ms" aria-hidden="true"></div>
+  <div class="about-content reveal reveal--right" style="--reveal-d:90ms">
+    <div class="sec-label" data-tr="Hakkımda" data-fr="À propos">Hakkımda</div>
+    <div id="about-main-title" class="sec-title" data-tr="PilatesEsra Kimdir?" data-fr="Qui est PilatesEsra ?"><span class="about-brand">Pilates<span>Esra</span></span> Kimdir?</div>
+    <p class="sec-body"
+       data-tr="Küçük yaşlarda basketbol tutkusuyla başlayan spor yolculuğum, üniversite yıllarında farklı bir yöne evrilse de, zamanla kendimi ait hissettiğim alana geri döndüm."
+       data-fr="Mon parcours sportif, qui a commencé avec une passion pour le basketball dès mon jeune âge, a pris une direction différente durant mes années universitaires, avant que je revienne vers le domaine où je me sens vraiment à ma place.">
+      Küçük yaşlarda basketbol tutkusuyla başlayan spor yolculuğum, üniversite yıllarında farklı bir yöne evrilse de, zamanla kendimi ait hissettiğim alana geri döndüm.
+    </p>
+    <p class="sec-body" style="margin-top:0.9rem;"
+       data-tr="2023–2025 yılları arasında pilates eğitmenliği eğitimi alırken, katıldığım çeşitli workshoplarla kendimi yeniden keşfetme ve geliştirme fırsatı buldum."
+       data-fr="Entre 2023 et 2025, alors que je suivais ma formation de formatrice en pilates, j'ai eu l'occasion de me redécouvrir et de me perfectionner grâce aux nombreux workshops auxquels j'ai participé.">
+      2023–2025 yılları arasında pilates eğitmenliği eğitimi alırken, katıldığım çeşitli workshoplarla kendimi yeniden keşfetme ve geliştirme fırsatı buldum.
+    </p>
+    <p class="sec-body" style="margin-top:0.9rem;"
+       data-tr="Pilatesin yanı sıra HIIT, step, LIA, HIA ve kuvvet antrenmanları gibi farklı disiplinlerde de ders verebilmek amacıyla 2026 yılında CQP ALS eğitimini tamamladım."
+       data-fr="Afin de pouvoir enseigner d'autres disciplines telles que le HIIT, le step, le LIA, le HIA et la musculation, j'ai obtenu le CQP ALS en 2026.">
+      Pilatesin yanı sıra HIIT, step, LIA, HIA ve kuvvet antrenmanları gibi farklı disiplinlerde de ders verebilmek amacıyla 2026 yılında CQP ALS eğitimini tamamladım.
+    </p>
+    <div class="about-why">
+      <div class="about-why-title">
+        <span data-tr="Neden " data-fr="Pourquoi choisir ">Neden </span><span class="about-brand">Pilates<span>Esra</span></span><span data-tr=" Pilates Stüdyosu’nu tercih etmelisiniz?" data-fr=" Studio de Pilates ?"> Pilates Stüdyosu’nu tercih etmelisiniz?</span>
+      </div>
+      <ul class="about-why-list">
+        <li>
+          <strong data-tr="Sınırlı kontenjanlı grup dersleri">Sınırlı kontenjanlı grup dersleri</strong>
+          <span data-tr="Küçük gruplarla çalışarak her katılımcıya özel ilgi gösterilir. Böylece grup dersi içinde bile özel ders kalitesinde bir deneyim yaşarsınız.">
+            Küçük gruplarla çalışarak her katılımcıya özel ilgi gösterilir. Böylece grup dersi içinde bile özel ders kalitesinde bir deneyim yaşarsınız.
+          </span>
+        </li>
+        <li>
+          <strong data-tr="Kişiye özel başlangıç değerlendirmesi">Kişiye özel başlangıç değerlendirmesi</strong>
+          <span data-tr="İlk seansınızda detaylı bir analiz yapılır. Eklem hareket açıklığınız, duruşunuz ve ihtiyaçlarınız doğrultusunda egzersizler grup derslerine uyarlanır.">
+            İlk seansınızda detaylı bir analiz yapılır. Eklem hareket açıklığınız, duruşunuz ve ihtiyaçlarınız doğrultusunda egzersizler grup derslerine uyarlanır.
+          </span>
+        </li>
+        <li>
+          <strong data-tr="Mat ve aletli pilates seçenekleri">Mat ve aletli pilates seçenekleri</strong>
+          <span data-tr="Hedeflerinize göre farklı ekipmanlarla zenginleştirilmiş ders içerikleri sunulur.">
+            Hedeflerinize göre farklı ekipmanlarla zenginleştirilmiş ders içerikleri sunulur.
+          </span>
+        </li>
+        <li>
+          <strong data-tr="Progressif (ilerlemeli) programlama">Progressif (ilerlemeli) programlama</strong>
+          <span data-tr="Her derste gelişiminizi hissedeceğiniz, adım adım ilerleyen bir program sunulur.">
+            Her derste gelişiminizi hissedeceğiniz, adım adım ilerleyen bir program sunulur.
+          </span>
+        </li>
+      </ul>
+    </div>
+    <a href="https://www.instagram.com/pilatesesra/" target="_blank" rel="noopener" class="insta-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      @pilatesesra
+    </a>
+    <div class="tags">
+      <span class="tag">Pilates</span>
+      <span class="tag">HIIT</span>
+      <span class="tag" data-tr="Kuvvet Antrenmanı" data-fr="Musculation">Kuvvet Antrenmanı</span>
+      <span class="tag" data-tr="Tüm Seviyeler" data-fr="Tous niveaux">Tüm Seviyeler</span>
+    </div>
+  </div>
+</div>
+
+<!-- CLASSES -->
+<section id="classes" class="sec classes-sec">
+  <div class="sec-label" data-tr="Ders Türleri" data-fr="Types de Cours">Ders Türleri</div>
+  <div class="sec-title" data-tr="Ne Sunuyorum?" data-fr="Ce que je propose">Ne Sunuyorum?</div>
+  <div class="class-cards">
+
+    <!-- 1 -->
+    <div class="class-card">
+      <div class="class-img pilates">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="13" r="7" stroke="white" stroke-width="1.3"/>
+          <path d="M8 40 Q22 28 36 40" stroke="white" stroke-width="1.3" fill="none"/>
+          <path d="M14 26 L22 31 L30 26" stroke="white" stroke-width="1.2" fill="none"/>
+        </svg>
+        <p>Mat Pilates</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name" data-tr="Mat Pilates Başlangıç" data-fr="Mat Pilates Débutant">Mat Pilates Başlangıç</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="50 dk" data-fr="50 min">50 dk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="class-card">
+      <div class="class-img pilates">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="13" r="7" stroke="white" stroke-width="1.3"/>
+          <path d="M8 40 Q22 28 36 40" stroke="white" stroke-width="1.3" fill="none"/>
+          <path d="M14 26 L22 31 L30 26" stroke="white" stroke-width="1.2" fill="none"/>
+        </svg>
+        <p>Mat Pilates</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name" data-tr="Mat Pilates Orta / İleri" data-fr="Mat Pilates Intermédiaire / Avancé">Mat Pilates Orta / İleri</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="50 dk" data-fr="50 min">50 dk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="class-card">
+      <div class="class-img pilates" style="background:#1A5450;">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <rect x="8" y="28" width="28" height="4" rx="1" stroke="white" stroke-width="1.2"/>
+          <circle cx="22" cy="13" r="7" stroke="white" stroke-width="1.3"/>
+          <path d="M15 22 L22 26 L29 22" stroke="white" stroke-width="1.2" fill="none"/>
+        </svg>
+        <p data-tr="Aletli Pilates" data-fr="Pilates Machine">Aletli Pilates</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name" data-tr="Aletli Pilates Başlangıç" data-fr="Pilates Machine Débutant">Aletli Pilates Başlangıç</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="50 dk" data-fr="50 min">50 dk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="class-card">
+      <div class="class-img pilates" style="background:#1A5450;">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <rect x="8" y="28" width="28" height="4" rx="1" stroke="white" stroke-width="1.2"/>
+          <circle cx="22" cy="13" r="7" stroke="white" stroke-width="1.3"/>
+          <path d="M15 22 L22 26 L29 22" stroke="white" stroke-width="1.2" fill="none"/>
+        </svg>
+        <p data-tr="Aletli Pilates" data-fr="Pilates Machine">Aletli Pilates</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name" data-tr="Aletli Pilates Orta / İleri" data-fr="Pilates Machine Intermédiaire / Avancé">Aletli Pilates Orta / İleri</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="50 dk" data-fr="50 min">50 dk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="class-card">
+      <div class="class-img hiit">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <path d="M6 22 L14 8 L22 28 L28 14 L38 22" stroke="white" stroke-width="1.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        <p>HIIT</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name">HIIT</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="45 dk" data-fr="45 min">45 dk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="class-card">
+      <div class="class-img" style="background:#2A5C5A;">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <path d="M10 32 Q14 20 22 18 Q30 16 34 28" stroke="white" stroke-width="1.3" fill="none"/>
+          <path d="M8 34 Q22 10 36 34" stroke="white" stroke-width="1" fill="none" opacity="0.4"/>
+          <circle cx="22" cy="12" r="4" stroke="white" stroke-width="1.2"/>
+        </svg>
+        <p>Stretching</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name">Stretching</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="45 dk" data-fr="45 min">45 dk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="class-card">
+      <div class="class-img kuvvet">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <rect x="4" y="19" width="8" height="6" rx="1" stroke="white" stroke-width="1.2"/>
+          <rect x="32" y="19" width="8" height="6" rx="1" stroke="white" stroke-width="1.2"/>
+          <line x1="12" y1="22" x2="32" y2="22" stroke="white" stroke-width="1.6"/>
+          <rect x="15" y="16" width="14" height="12" rx="1" stroke="white" stroke-width="1.2"/>
+        </svg>
+        <p data-tr="Kuvvet" data-fr="Musculation">Kuvvet</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name" data-tr="Geleneksel Kuvvet" data-fr="Musculation Traditionnelle">Geleneksel Kuvvet</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="1 saat" data-fr="1 heure">1 saat</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="class-card">
+      <div class="class-img" style="background:#234E4C;">
+        <svg width="38" height="38" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="10" stroke="white" stroke-width="1.2"/>
+          <circle cx="22" cy="22" r="3" stroke="white" stroke-width="1.2"/>
+          <line x1="22" y1="8" x2="22" y2="12" stroke="white" stroke-width="1.2"/>
+          <line x1="22" y1="32" x2="22" y2="36" stroke="white" stroke-width="1.2"/>
+          <line x1="8" y1="22" x2="12" y2="22" stroke="white" stroke-width="1.2"/>
+          <line x1="32" y1="22" x2="36" y2="22" stroke="white" stroke-width="1.2"/>
+        </svg>
+        <p data-tr="Mobility & Denge" data-fr="Mobilité & Équilibre">Mobility & Denge</p>
+      </div>
+      <div class="class-body">
+        <div class="class-name" data-tr="Mobility & Denge" data-fr="Mobilité & Équilibre">Mobility & Denge</div>
+        <div class="class-meta" style="margin-top:0.4rem;">
+          <span data-tr="45 dk" data-fr="45 min">45 dk</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="sec education">
+  <div class="sec-label" data-tr="Aldığım Eğitimler" data-fr="Mes Formations">Aldığım Eğitimler</div>
+  <div class="sec-title" data-tr="Eğitim & Sertifikalar" data-fr="Formation & Certifications">Eğitim & Sertifikalar</div>
+  <p class="sec-body"
+     data-tr="Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım. Her sertifika, size en doğru, en güvenli ve en etkili antrenmanı sunmam için birer temel taşıdır."
+     data-fr="Animée par la conviction de se former en continu, j'ai complété des formations reconnues aux niveaux national et international. Chaque certification est une pierre fondatrice pour vous offrir un entraînement juste, sûr et efficace.">
+    Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım.
+  </p>
+  <!-- Sertifikalar -->
+  <div class="edu-sub-label" data-tr="Sertifikalar" data-fr="Certifications">Sertifikalar</div>
+  <div class="edu-grid">
+    <div class="edu-card">
+      <div class="yr">2026</div>
+      <div class="ttl">CQP ALS AGEE</div>
+      <div class="desc">Certificat de Qualification Professionnelle mention Animateur de Loisir Sportif option Activités Gymniques d'Entretien et d'Expression</div>
+    </div>
+    <div class="edu-card">
+      <div class="ttl">Polestar Pilates</div>
+      <div class="desc" data-tr="Polestar Pilates Comprehensive Pilates Instructor sertifikası." data-fr="Certification Polestar Pilates Comprehensive Pilates Instructor.">Polestar Pilates Comprehensive Pilates Instructor</div>
+    </div>
+  </div>
+  <div class="cert-imgs">
+    <img src="WhatsApp Image 2026-03-26 at 23.40.26.jpeg" alt="Sertifika 1" onclick="openLightbox(this)">
+    <img src="WhatsApp Image 2026-03-26 at 23.40.26 (1).jpeg" alt="Sertifika 2" onclick="openLightbox(this)">
+  </div>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- Katıldığı Eğitimler -->
+  <div class="edu-sub-label" data-tr="Katıldığım Eğitimler" data-fr="Formations Suivies">Katıldığım Eğitimler</div>
+
+  <div class="edu-list-block">
+    <div class="block-title" data-tr="Quadroathletics Sertifikalı Eğitimleri" data-fr="Formations Certifiées Quadroathletics">Quadroathletics Sertifikalı Eğitimleri</div>
+    <ul class="edu-list two-col">
+      <!-- Sol sütun: 4 -->
+      <li>Core antrenman kategorileri ve stabilizasyon<span class="instr">Instructor: Dr. Joseph Esformes</span></li>
+      <li>Fonksiyonel bantlar yerde kuvvet antrenmanı<span class="instr">Instructor: Patrick Herzog</span></li>
+      <li>Yumuşak doku yüklenmesi<span class="instr">Instructor: Matt Kritz</span></li>
+      <li>Yaşlılarda antrenman programları<span class="instr">Instructor: Robert Linkul</span></li>
+      <!-- Sağ sütun: 5 -->
+      <li>Patellofemoral ağrı<span class="instr">Instructor: Steve Miller</span></li>
+      <li>FMS ile düzeltici egzersiz programları<span class="instr">Instructor: Mike Deibler</span></li>
+      <li>FMI over pronation &amp; corrective exercise strategies<span class="instr">Instructor: Emrah Demirbaş</span></li>
+      <li>Kuvvet antrenmanları ve periyodizasyon <em>(Sertifikasız online eğitim)</em><span class="instr">Dr. Joseph Esformes</span></li>
+      <li>İleri düzey kettlebell eğitimleri <em>(Sertifikasız online eğitim)</em><span class="instr">Dr. Bahman Golshaei</span></li>
+    </ul>
+  </div>
+
+  <div class="edu-list-block">
+    <div class="block-title" data-tr="Hareket Uzmanları Platformu Sertifikalı Eğitimleri" data-fr="Formations Certifiées — Plateforme des Experts du Mouvement">Hareket Uzmanları Platformu Sertifikalı Eğitimleri</div>
+    <ul class="edu-list two-col">
+      <li>Kifotik postür ve egzersiz stratejileri<span class="instr">Master Trainer Gizem Özcan — VOB Pilates Academy</span></li>
+      <li>Beyin biliş egzersiz<span class="instr">D.O MSC Fırat Çağlar Erdem</span></li>
+      <li>Spor genetiğinde güncel gelişmeler<span class="instr">Prof. Dr. Korkut Ulucan</span></li>
+      <li>Beslenme ve metabolizma sorunlarında egzersiz yöntemi<span class="instr">Prof. Dr. İsa Sağıroğlu</span></li>
+      <li>Pilates tedavinin bir parçası olabilir mi?<span class="instr">Asst. Prof. Dr. Osman Coşkun</span></li>
+      <li>Spor yaralanmalarını önlemede esnekliğin yeri ve Pilates'in önemi<span class="instr">Doç. Dr. İlker Kirişçi</span></li>
+      <li>Üst çapraz sendromunda ders planlama ve uygulama teknikleri<span class="instr">Işıkcan Nehir Taşkan — Serotonin Academy Master Trainer</span></li>
+      <li>Postürün gizli gücü; üç adımda doğru hizalanma<span class="instr">Göktuğ Şanlı</span></li>
+      <li>Pilatesin profesyonel sporcularda kullanımı<span class="instr">Alper Koçak</span></li>
+      <li>Diastasis Recti için bütünsel yaklaşım<span class="instr">Tılsım Okay — Pilates Academy</span></li>
+      <li>Egzersiz sonrası toparlanmaya yakından bakmak: Neler yapmalısın?<span class="instr">Emrah Özdemir</span></li>
+      <li>Diyafram solunumu ile ilgili doğru bilinen yanlışlar<span class="instr">FZT. Yelda Pekbay</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PLANNING -->
+<section id="planning" class="sec planning-sec">
+  <div class="sec-label" data-tr="Haftalık Takvim" data-fr="Planning Hebdomadaire">Haftalık Takvim</div>
+  <div class="sec-title" data-tr="Ders Programı" data-fr="Calendrier des Cours">Ders Programı</div>
+  <div class="week-grid">
+    <div class="day-col">
+      <div class="day-hdr" data-tr="Pazartesi" data-fr="Lundi">Pazartesi</div>
+      <div class="cls"><div class="t">09:00</div>Pilates</div>
+      <div class="cls"><div class="t">13:30</div>Pilates</div>
+      <div class="cls kuvvet-c"><div class="t">19:30–20:30</div><span data-tr="Kuvvet" data-fr="Muscu.">Kuvvet</span></div>
+    </div>
+    <div class="day-col">
+      <div class="day-hdr" data-tr="Salı" data-fr="Mardi">Salı</div>
+      <div class="cls"><div class="t">09:00</div>Pilates</div>
+      <div class="cls hiit-c"><div class="t">13:30</div>HIIT</div>
+      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
+    </div>
+    <div class="day-col">
+      <div class="day-hdr" data-tr="Çarşamba" data-fr="Mercredi">Çarşamba</div>
+      <div class="cls"><div class="t">09:00</div>Pilates</div>
+      <div class="cls kuvvet-c"><div class="t">13:30</div><span data-tr="Kuvvet" data-fr="Muscu.">Kuvvet</span></div>
+      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
+    </div>
+    <div class="day-col">
+      <div class="day-hdr" data-tr="Perşembe" data-fr="Jeudi">Perşembe</div>
+      <div class="cls"><div class="t">09:00</div>Pilates</div>
+      <div class="cls hiit-c"><div class="t">13:30</div>HIIT</div>
+      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
+    </div>
+    <div class="day-col">
+      <div class="day-hdr" data-tr="Cuma" data-fr="Vendredi">Cuma</div>
+      <div class="cls kuvvet-c"><div class="t">09:00</div><span data-tr="Kuvvet" data-fr="Muscu.">Kuvvet</span></div>
+      <div class="cls"><div class="t">13:30</div>Pilates</div>
+      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVATION -->
+<section id="reservation" class="sec reservation-sec">
+  <div class="sec-label" data-tr="Online Randevu" data-fr="Réservation en Ligne">Online Randevu</div>
+  <div class="sec-title" data-tr="Ders Rezervasyonu" data-fr="Réservez votre cours">Ders Rezervasyonu</div>
+  <div class="resa-grid">
+    <!-- LEFT: form -->
+    <div>
+      <div class="form-grp">
+        <label class="flbl" data-tr="Ders Türü" data-fr="Type de cours">Ders Türü</label>
+        <select class="fsel" id="ders" onchange="updateConfirm()">
+          <option value="Pilates">Pilates</option>
+          <option value="HIIT">HIIT</option>
+          <option id="opt-kuvvet" value="Kuvvet" data-tr="Kuvvet Antrenmanı" data-fr="Musculation">Kuvvet Antrenmanı</option>
+        </select>
+      </div>
+      <div class="form-grp">
+        <label class="flbl" data-tr="Ad Soyad" data-fr="Prénom & Nom">Ad Soyad</label>
+        <input type="text" class="finp" id="ad"
+               data-tr-ph="Adınız Soyadınız" data-fr-ph="Prénom Nom"
+               placeholder="Adınız Soyadınız" oninput="updateConfirm()">
+      </div>
+      <div class="form-grp">
+        <label class="flbl" data-tr="E-posta" data-fr="E-mail">E-posta</label>
+        <input type="email" class="finp" id="eposta"
+               data-tr-ph="ornek@email.com" data-fr-ph="exemple@email.com"
+               placeholder="ornek@email.com">
+      </div>
+      <div class="form-grp">
+        <label class="flbl" data-tr="Telefon" data-fr="Téléphone">Telefon</label>
+        <input type="tel" class="finp" id="tel"
+               data-tr-ph="+90 5XX XXX XX XX" data-fr-ph="+33 6 XX XX XX XX"
+               placeholder="+90 5XX XXX XX XX">
+      </div>
+      <div class="form-grp" style="margin-top:0.3rem;">
+        <label class="flbl" data-tr="Not (isteğe bağlı)" data-fr="Note (facultatif)">Not (isteğe bağlı)</label>
+        <input type="text" class="finp" id="not"
+               data-tr-ph="Sakatlanma, özel istek vb." data-fr-ph="Blessure, demande particulière..."
+               placeholder="Sakatlanma, özel istek vb.">
+      </div>
+      <div class="slots-area">
+        <div class="slots-lbl" data-tr="Uygun Saatler" data-fr="Créneaux Disponibles">Uygun Saatler</div>
+        <div class="slots-row" id="slots-row">
+          <button class="slot-btn" onclick="pickSlot(this,'08:30')">08:30</button>
+          <button class="slot-btn" onclick="pickSlot(this,'11:00')">11:00</button>
+          <button class="slot-btn on" onclick="pickSlot(this,'12:00')">12:00</button>
+          <button class="slot-btn" onclick="pickSlot(this,'14:00')">14:00</button>
+          <div class="slot-full" id="slot-full-label" data-tr="18:30 (Dolu)" data-fr="18:30 (Complet)">18:30 (Dolu)</div>
+          <button class="slot-btn" onclick="pickSlot(this,'19:00')">19:00</button>
+          <button class="slot-btn" onclick="pickSlot(this,'19:30')">19:30</button>
+        </div>
+      </div>
+      <div class="confirm-box">
+        <div class="confirm-row">
+          <span class="lbl" data-tr="Ders"  data-fr="Cours">Ders</span>
+          <span class="val" id="c-ders">Pilates</span>
+        </div>
+        <div class="confirm-row">
+          <span class="lbl" data-tr="Tarih" data-fr="Date">Tarih</span>
+          <span class="val" id="c-tarih">—</span>
+        </div>
+        <div class="confirm-row">
+          <span class="lbl" data-tr="Saat"  data-fr="Heure">Saat</span>
+          <span class="val" id="c-saat">12:00</span>
+        </div>
+        <div class="confirm-row">
+          <span class="lbl" data-tr="İsim"  data-fr="Nom">İsim</span>
+          <span class="val" id="c-isim">—</span>
+        </div>
+        <button class="btn-confirm" onclick="confirmer()"
+                data-tr="Randevuyu Onayla" data-fr="Confirmer la réservation">Randevuyu Onayla</button>
+      </div>
+    </div>
+    <!-- RIGHT: calendar -->
+    <div>
+      <div class="calendar">
+        <div class="cal-hdr">
+          <button class="cal-nav" onclick="changeMonth(-1)">&#8592;</button>
+          <div class="cal-month" id="cal-month-lbl"></div>
+          <button class="cal-nav" onclick="changeMonth(1)">&#8594;</button>
+        </div>
+        <div class="cal-days-hdr" id="cal-days-hdr">
+          <div class="cal-dh">P</div><div class="cal-dh">S</div><div class="cal-dh">Ç</div>
+          <div class="cal-dh">P</div><div class="cal-dh">C</div><div class="cal-dh">Ct</div>
+          <div class="cal-dh">P</div>
+        </div>
+        <div class="cal-days" id="cal-days"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ANNOUNCEMENTS -->
+<section id="announcements" class="sec ann-sec">
+  <div class="sec-label" data-tr="Güncellemeler" data-fr="Actualités">Güncellemeler</div>
+  <div class="sec-title" data-tr="Duyurular" data-fr="Annonces">Duyurular</div>
+  <div class="ann-grid">
+    <div class="ann-card ann-new">
+      <div class="ann-date" data-tr="25 Mart 2026" data-fr="25 Mars 2026">25 Mart 2026</div>
+      <div class="ann-title">
+        <span data-tr="Yeni: Hamilelik Pilates Dersleri" data-fr="Nouveau : Pilates Prénatal">Yeni: Hamilelik Pilates Dersleri</span>
+        <span class="badge b-new" data-tr="Yeni" data-fr="Nouveau">Yeni</span>
+      </div>
+      <p class="ann-body"
+         data-tr="1 Nisan'dan itibaren her Çarşamba 15:00'te hamilelik dönemine özel pilates dersleri başlıyor. Ön kayıt gereklidir, kontenjan sınırlıdır."
+         data-fr="Des cours de pilates prénatal démarrent le 1er avril, chaque mercredi à 15h. Pré-inscription requise, places limitées.">
+        1 Nisan'dan itibaren her Çarşamba 15:00'te hamilelik dönemine özel pilates dersleri başlıyor. Ön kayıt gereklidir.
+      </p>
+    </div>
+    <div class="ann-card">
+      <div class="ann-date" data-tr="20 Mart 2026" data-fr="20 Mars 2026">20 Mart 2026</div>
+      <div class="ann-title">
+        <span data-tr="Nisan Workshop: Postür & Omurga Sağlığı" data-fr="Workshop Avril : Posture & Dos">Nisan Workshop: Postür & Omurga</span>
+        <span class="badge b-info">Workshop</span>
+      </div>
+      <p class="ann-body"
+         data-tr="12–13 Nisan tarihlerinde iki günlük yoğun workshop. Postür analizi, omurga sağlığı ve ev egzersiz programı tasarımı. 8 kontenjan mevcuttur."
+         data-fr="Workshop intensif de 2 jours les 12–13 avril. Analyse posturale, santé du dos et programme d'exercices à domicile. 8 places disponibles.">
+        12–13 Nisan tarihlerinde iki günlük yoğun workshop. 8 kontenjan mevcuttur.
+      </p>
+    </div>
+    <div class="ann-card">
+      <div class="ann-date" data-tr="15 Mart 2026" data-fr="15 Mars 2026">15 Mart 2026</div>
+      <div class="ann-title" data-tr="Online Dersler Genişliyor" data-fr="Cours en Ligne Élargis">Online Dersler Genişliyor</div>
+      <p class="ann-body"
+         data-tr="Zoom üzerinden online Pilates ve HIIT derslerine katılabilirsiniz. Yurt dışında yaşayanlar ve yoğun programlı olanlar için ideal, esnek seçenek."
+         data-fr="Rejoignez maintenant nos cours de Pilates et HIIT en ligne via Zoom. Option idéale et flexible pour les personnes à l'étranger ou avec un emploi du temps chargé.">
+        Zoom üzerinden online Pilates ve HIIT derslerine katılabilirsiniz. Yurt dışındakiler için ideal.
+      </p>
+    </div>
+    <div class="ann-card ann-cancel">
+      <div class="ann-date" data-tr="10 Mart 2026" data-fr="10 Mars 2026">10 Mart 2026</div>
+      <div class="ann-title">
+        <span data-tr="Ders İptali: 22 Mart" data-fr="Cours Annulé : 22 Mars">Ders İptali: 22 Mart</span>
+        <span class="badge b-cancel" data-tr="İptal" data-fr="Annulé">İptal</span>
+      </div>
+      <p class="ann-body"
+         data-tr="22 Mart Pazar günkü tüm dersler iptal edilmiştir. Mevcut rezervasyonlar bir sonraki haftaya aktarılacak ve bildirim gönderilecektir."
+         data-fr="Tous les cours du dimanche 22 mars sont annulés. Les réservations existantes seront reportées à la semaine suivante et une notification sera envoyée.">
+        22 Mart Pazar günkü tüm dersler iptal edilmiştir. Rezervasyonlar sonraki haftaya aktarılacaktır.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Pilates<span>Esra</span></div>
+  <div class="f-links">
+    <a onclick="go('about')"         data-tr="Hakkımda"   data-fr="À propos">Hakkımda</a>
+    <a onclick="go('reservation')"   data-tr="Randevu Al" data-fr="Réserver">Randevu Al</a>
+    <a onclick="go('announcements')" data-tr="Duyurular"  data-fr="Annonces">Duyurular</a>
+    <a href="https://www.instagram.com/pilatesesra/" target="_blank" rel="noopener" class="f-insta">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+      @pilatesesra
+    </a>
+  </div>
+  <div class="f-copy" data-tr="© 2026 PilatesEsra · Tüm hakları saklıdır" data-fr="© 2026 PilatesEsra · Tous droits réservés">
+    © 2026 PilatesEsra · Tüm hakları saklıdır
+  </div>
+</footer>
+
+<script src="vendor/lenis.min.js"></script>
+<script>
+// ── SMOOTH SCROLL (Lenis) ──
+let lenis = null;
+(function initLenis() {
+  function boot() {
+    if (typeof Lenis === 'undefined') return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    lenis = new Lenis({
+      autoRaf: true,
+      lerp: reduced ? 1 : 0.085,
+      smoothWheel: !reduced,
+      wheelMultiplier: 1,
+      touchMultiplier: 1,
+      syncTouch: false
+    });
+    window.addEventListener('load', function () { if (lenis) lenis.resize(); });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
+// ── STATE ────────────────────────────────────────────────
+let lang = 'tr';
+let selectedSlot = '12:00';
+let selectedDay  = null;
+let cur = new Date(); cur.setDate(1);
+
+const MONTHS = {
+  tr: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
+  fr: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre']
+};
+const CAL_HEADERS = {
+  tr: ['P','S','Ç','P','C','Ct','P'],
+  fr: ['L','M','M','J','V','S','D']
+};
+
+// Days with available slots per month (month index 1–12)
+const availDays = {
+  3:[20,21,24,25,26,27,28],
+  4:[1,2,3,4,7,8,9,10,11,14,15,16,17,18,22,23,24,25,28,29,30],
+  5:[2,5,6,7,8,9,12,13,14,15,16,19,20,21,22,23,26,27,28,29,30]
+};
+
+// ── NAVIGATION ───────────────────────────────────────────
+function easeInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+function easeInOutQuint(t) {
+  return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
+}
+function getAnchorScrollY(el, offsetPx) {
+  const rect = el.getBoundingClientRect();
+  const base = lenis ? lenis.scroll : window.pageYOffset;
+  return Math.max(0, Math.round(rect.top + base + offsetPx));
+}
+function animateWindowScrollTo(targetY, durationMs, easeFn) {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    window.scrollTo(0, targetY);
+    if (lenis) lenis.scrollTo(targetY, { immediate: true });
+    return;
+  }
+  const startY = window.pageYOffset;
+  const dist = targetY - startY;
+  if (Math.abs(dist) < 2) return;
+  let stopped = false;
+  if (lenis) { lenis.stop(); stopped = true; }
+  const t0 = performance.now();
+  function step(now) {
+    const u = Math.min(1, (now - t0) / durationMs);
+    const y = Math.round(startY + dist * easeFn(u));
+    window.scrollTo(0, y);
+    if (u < 1) requestAnimationFrame(step);
+    else if (stopped && lenis) {
+      lenis.scrollTo(targetY, { immediate: true });
+      lenis.start();
+    }
+  }
+  requestAnimationFrame(step);
+}
+function scrollTopPage() {
+  animateWindowScrollTo(0, 2000, easeInOutCubic);
+}
+function go(id, ev) {
+  if (ev && ev.preventDefault) ev.preventDefault();
+  const el = document.getElementById(id);
+  if (!el) return;
+  const toReservation = id === 'reservation';
+  const targetY = getAnchorScrollY(el, -76);
+  animateWindowScrollTo(targetY, toReservation ? 2600 : 2100, toReservation ? easeInOutQuint : easeInOutCubic);
+}
+
+// ── LANGUAGE ─────────────────────────────────────────────
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
+
+  // Update all data-tr / data-fr elements
+  document.querySelectorAll('[data-tr],[data-fr]').forEach(el => {
+    const val = el.getAttribute('data-' + l);
+    if (!val) return;
+    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+      // handled separately via data-tr-ph / data-fr-ph
+    } else if (el.tagName === 'OPTION') {
+      el.textContent = val;
+    } else if (el.tagName === 'SELECT') {
+      // skip
+    } else {
+      // Don't overwrite elements that contain badge children
+      if (!el.querySelector('.badge')) el.textContent = val;
+    }
+  });
+
+  // Placeholder updates
+  document.querySelectorAll('[data-tr-ph],[data-fr-ph]').forEach(el => {
+    const ph = el.getAttribute(`data-${l}-ph`);
+    if (ph) el.placeholder = ph;
+  });
+
+  // Slot-full label
+  const sf = document.getElementById('slot-full-label');
+  if (sf) sf.textContent = l === 'tr' ? '18:30 (Dolu)' : '18:30 (Complet)';
+
+  // Calendar day headers
+  const hdrs = document.querySelectorAll('#cal-days-hdr .cal-dh');
+  CAL_HEADERS[l].forEach((h, i) => { if (hdrs[i]) hdrs[i].textContent = h; });
+
+  renderCal();
+  updateConfirm();
+}
+
+// ── CALENDAR ─────────────────────────────────────────────
+function renderCal() {
+  const lbl  = document.getElementById('cal-month-lbl');
+  const grid = document.getElementById('cal-days');
+  if (!lbl || !grid) return;
+
+  lbl.textContent = MONTHS[lang][cur.getMonth()] + ' ' + cur.getFullYear();
+
+  const first = new Date(cur.getFullYear(), cur.getMonth(), 1);
+  let dow = first.getDay();
+  dow = (dow === 0) ? 6 : dow - 1; // Mon = 0
+
+  const daysInMonth = new Date(cur.getFullYear(), cur.getMonth() + 1, 0).getDate();
+  const today = new Date();
+  const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+  grid.innerHTML = '';
+
+  // Empty cells before first day
+  for (let i = 0; i < dow; i++) {
+    const e = document.createElement('div');
+    e.className = 'cal-day empty';
+    grid.appendChild(e);
+  }
+
+  for (let d = 1; d <= daysInMonth; d++) {
+    const e   = document.createElement('div');
+    const mo  = cur.getMonth() + 1;
+    const hasSl  = availDays[mo] && availDays[mo].includes(d);
+    const isPast = new Date(cur.getFullYear(), cur.getMonth(), d) < todayMidnight;
+
+    let cls = 'cal-day';
+    if (hasSl)  cls += ' has-slot';
+    if (isPast) cls += ' past';
+    e.className = cls;
+    e.textContent = d;
+
+    if (!isPast && hasSl) {
+      e.addEventListener('click', () => pickDay(d, e));
+    }
+    if (selectedDay === d && cur.getMonth() === new Date().getMonth()) {
+      e.classList.add('active');
+    }
+    grid.appendChild(e);
+  }
+}
+
+function changeMonth(delta) {
+  cur.setMonth(cur.getMonth() + delta);
+  selectedDay = null;
+  document.getElementById('c-tarih').textContent = '—';
+  renderCal();
+}
+
+function pickDay(d, el) {
+  selectedDay = d;
+  document.querySelectorAll('.cal-day').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('c-tarih').textContent = d + ' ' + MONTHS[lang][cur.getMonth()];
+}
+
+// ── RESERVATION ──────────────────────────────────────────
+function pickSlot(el, s) {
+  selectedSlot = s;
+  document.querySelectorAll('.slot-btn').forEach(x => x.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('c-saat').textContent = s;
+}
+
+function updateConfirm() {
+  const d = document.getElementById('ders');
+  const n = document.getElementById('ad');
+  if (d) document.getElementById('c-ders').textContent = d.value;
+  if (n) document.getElementById('c-isim').textContent = n.value.trim() || '—';
+}
+
+function confirmer() {
+  const ad = document.getElementById('ad').value.trim();
+  const ep = document.getElementById('eposta').value.trim();
+  if (!ad || !selectedDay) {
+    alert(lang === 'tr'
+      ? 'Lütfen adınızı girin ve takvimden bir tarih seçin.'
+      : 'Veuillez entrer votre nom et sélectionner une date dans le calendrier.');
+    return;
+  }
+  const dateStr = selectedDay + ' ' + MONTHS[lang][cur.getMonth()] + ' ' + cur.getFullYear();
+  const msg = lang === 'tr'
+    ? `✓ Randevunuz alındı!\n\nDers: ${document.getElementById('c-ders').textContent}\nTarih: ${dateStr}\nSaat: ${selectedSlot}\nİsim: ${ad}\n\nOnay ${ep ? 'e-postası gönderilecek: ' + ep : 'bilgileri kaydedildi.'}`
+    : `✓ Réservation confirmée !\n\nCours : ${document.getElementById('c-ders').textContent}\nDate : ${dateStr}\nHeure : ${selectedSlot}\nNom : ${ad}\n\n${ep ? 'Email de confirmation envoyé à : ' + ep : 'Vos informations ont été enregistrées.'}`;
+  alert(msg);
+}
+
+// ── HERO SLIDER DRAG ─────────────────────────────────────
+(function() {
+  const slider = document.querySelector('.hero-slider');
+  const container = document.querySelector('.hero-img');
+  let isDragging = false, startX = 0, scrollLeft = 0;
+
+  container.addEventListener('mousedown', e => {
+    isDragging = true;
+    slider.classList.add('dragging');
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
+  });
+  container.addEventListener('mouseleave', () => {
+    isDragging = false;
+    slider.classList.remove('dragging');
+  });
+  container.addEventListener('mouseup', () => {
+    isDragging = false;
+    slider.classList.remove('dragging');
+  });
+  container.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - container.offsetLeft;
+    container.scrollLeft = scrollLeft - (x - startX);
+  });
+  // overflow ayarı
+  container.style.overflowX = 'auto';
+  container.style.scrollbarWidth = 'none';
+  container.style.msOverflowStyle = 'none';
+})();
+
+// ── LIGHTBOX ─────────────────────────────────────────────
+function openLightbox(img) {
+  document.getElementById('lightbox-img').src = img.src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+
+// ── INIT ─────────────────────────────────────────────────
+renderCal();
+</script>
+</body>
+</html>
