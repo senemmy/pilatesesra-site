@@ -40,9 +40,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 /* ── SCROLL REVEAL ── */
 .reveal{
   opacity:0;
-  transform:translateY(16px);
-  transition:opacity 0.95s cubic-bezier(0.33,0.55,0.25,1), transform 0.95s cubic-bezier(0.33,0.55,0.25,1);
+  transform:translateY(40px);
+  transition:opacity 0.85s ease, transform 0.85s cubic-bezier(0.16,1,0.3,1);
   transition-delay:var(--reveal-d, 0ms);
+  will-change:opacity,transform;
 }
 .reveal.is-visible{opacity:1;transform:none;}
 .sec-label.reveal,
@@ -50,16 +51,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
 .edu-sub-label.reveal,
 .hero .eyebrow.reveal,
 .hero-title.reveal{
-  transform:translateY(8px);
-  transition:opacity 1.28s cubic-bezier(0.22,0.65,0.32,1), transform 1.28s cubic-bezier(0.22,0.65,0.32,1);
+  transform:translateY(28px);
+  transition:opacity 0.9s cubic-bezier(0.22,0.65,0.32,1), transform 0.9s cubic-bezier(0.22,0.65,0.32,1);
+  transition-delay:var(--reveal-d, 0ms);
 }
 .hero .btn.reveal{
-  transform:translateY(12px);
-  transition:opacity 1.08s cubic-bezier(0.25,0.6,0.35,1), transform 1.08s cubic-bezier(0.25,0.6,0.35,1);
+  transform:translateY(24px);
+  transition:opacity 0.8s cubic-bezier(0.25,0.6,0.35,1), transform 0.8s cubic-bezier(0.25,0.6,0.35,1);
+  transition-delay:var(--reveal-d, 0ms);
 }
-.reveal.reveal--left{transform:translate3d(-22px,16px,0);}
-.reveal.reveal--right{transform:translate3d(22px,16px,0);}
-.reveal.reveal--zoom{transform:scale(0.985) translateY(10px);}
+.reveal.reveal--left{transform:translate3d(-60px,0,0);opacity:0;}
+.reveal.reveal--right{transform:translate3d(60px,0,0);opacity:0;}
+.reveal.reveal--zoom{transform:scale(0.88) translateY(30px);opacity:0;}
 .reveal.reveal--zoom.is-visible{transform:none;}
 @media (prefers-reduced-motion:reduce){
   .reveal,.reveal.reveal--left,.reveal.reveal--right,.reveal.reveal--zoom{
@@ -1381,9 +1384,14 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
         obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  // Double rAF: tarayıcının opacity:0 başlangıç durumunu boyamasını bekle
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    });
+  });
 })();
 
 // ── INIT ─────────────────────────────────────────────────
