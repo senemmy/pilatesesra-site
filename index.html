@@ -407,6 +407,11 @@ nav{
   color:rgba(42,58,57,0.45);font-size:12px;border-radius:2px;font-style:italic;
   font-family:'DM Sans',sans-serif;
 }
+.slot-btn.booked{
+  background:rgba(42,58,57,0.06);color:rgba(42,58,57,0.35);
+  border-color:rgba(42,58,57,0.12);cursor:not-allowed;font-style:italic;
+  text-decoration:line-through;pointer-events:none;
+}
 .confirm-box{
   background:var(--white);border:1px solid rgba(46,139,134,0.14);
   border-radius:3px;padding:1.2rem;
@@ -456,7 +461,35 @@ nav{
 
 /* ── ANNOUNCEMENTS ── */
 .ann-sec{background:var(--beige);}
-.ann-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:2rem;}
+
+/* Contact */
+.contact-sec{background:var(--cream);padding-top:2rem;}
+.contact-wrap{max-width:680px;margin:3rem auto 0;}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+.cf-grp{display:flex;flex-direction:column;gap:6px;margin-bottom:1.2rem;}
+.cf-lbl{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--teal);}
+.cf-req{color:var(--gold);margin-left:2px;}
+.cf-inp,.cf-ta{
+  background:var(--white);border:1px solid rgba(46,139,134,0.18);
+  color:var(--dark);padding:0.75rem 1rem;font-family:'DM Sans',sans-serif;
+  font-size:13px;border-radius:2px;width:100%;outline:none;
+  transition:border-color 0.2s;
+}
+.cf-inp:focus,.cf-ta:focus{border-color:var(--teal);}
+.cf-inp::placeholder,.cf-ta::placeholder{color:rgba(42,58,57,0.4);}
+.cf-ta{resize:vertical;min-height:130px;}
+.cf-btn{
+  width:100%;padding:0.9rem;background:var(--gold);
+  color:var(--dark);border:none;font-family:'DM Sans',sans-serif;
+  font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
+  border-radius:2px;transition:background 0.2s;margin-top:0.4rem;
+}
+.cf-btn:hover{background:var(--gold-light);}
+.cf-btn:disabled{opacity:0.6;cursor:not-allowed;}
+.cf-feedback{margin-top:1rem;font-size:13px;padding:0.75rem 1rem;border-radius:2px;display:none;}
+.cf-feedback.ok{background:rgba(46,139,134,0.08);color:var(--teal);border:1px solid rgba(46,139,134,0.2);}
+.cf-feedback.err{background:rgba(192,64,64,0.06);color:#C04040;border:1px solid rgba(192,64,64,0.2);}
+.ann-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-top:3.5rem;}
 .ann-card{
   background:var(--white);border-radius:4px;padding:1.5rem;
   border-left:3px solid var(--teal);box-shadow:0 1px 10px rgba(0,0,0,0.06);
@@ -516,6 +549,7 @@ footer{
   .week-grid{grid-template-columns:repeat(3,1fr);}
   .resa-grid{grid-template-columns:1fr;}
   .ann-grid{grid-template-columns:1fr;}
+  .cf-row{grid-template-columns:1fr;}
   nav{flex-wrap:wrap;gap:0.8rem;}
 }
 </style>
@@ -532,6 +566,7 @@ footer{
     <a href="#planning" class="nav-lnk" onclick="go('planning',event)" data-tr="Program"      data-fr="Planning">Program</a>
     <a href="#reservation" class="nav-lnk" onclick="go('reservation',event)" data-tr="Randevu Al"   data-fr="Réserver">Randevu Al</a>
     <a href="#announcements" class="nav-lnk" onclick="go('announcements',event)" data-tr="Duyurular"   data-fr="Annonces">Duyurular</a>
+    <a href="#contact" class="nav-lnk" onclick="go('contact',event)" data-tr="İletişim" data-fr="Contact">İletişim</a>
     <a href="https://www.instagram.com/pilatesesra/" target="_blank" rel="noopener" class="nav-insta" title="Instagram">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
@@ -784,7 +819,7 @@ footer{
 <section id="education" class="sec education">
   <div class="sec-label reveal" data-tr="Aldığım Eğitimler" data-fr="Mes Formations">Aldığım Eğitimler</div>
   <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Eğitim & Sertifikalar" data-fr="Formation & Certifications">Eğitim & Sertifikalar</div>
-  <p class="sec-body reveal" style="--reveal-d:160ms;margin-top:1.2rem;"
+  <p class="sec-body reveal" style="--reveal-d:160ms;margin-top:2.4rem;"
      data-tr="Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım. Her sertifika, size en doğru, en güvenli ve en etkili antrenmanı sunmam için birer temel taşıdır."
      data-fr="Animée par la conviction de se former en continu, j'ai complété des formations reconnues aux niveaux national et international. Chaque certification est une pierre fondatrice pour vous offrir un entraînement juste, sûr et efficace.">
     Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım.
@@ -855,38 +890,7 @@ footer{
 <section id="planning" class="sec planning-sec">
   <div class="sec-label reveal" data-tr="Haftalık Takvim" data-fr="Planning Hebdomadaire">Haftalık Takvim</div>
   <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Ders Programı" data-fr="Calendrier des Cours">Ders Programı</div>
-  <div class="week-grid reveal" style="--reveal-d:160ms">
-    <div class="day-col">
-      <div class="day-hdr" data-tr="Pazartesi" data-fr="Lundi">Pazartesi</div>
-      <div class="cls"><div class="t">09:00</div>Pilates</div>
-      <div class="cls"><div class="t">13:30</div>Pilates</div>
-      <div class="cls kuvvet-c"><div class="t">19:30–20:30</div><span data-tr="Kuvvet" data-fr="Muscu.">Kuvvet</span></div>
-    </div>
-    <div class="day-col">
-      <div class="day-hdr" data-tr="Salı" data-fr="Mardi">Salı</div>
-      <div class="cls"><div class="t">09:00</div>Pilates</div>
-      <div class="cls hiit-c"><div class="t">13:30</div>HIIT</div>
-      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
-    </div>
-    <div class="day-col">
-      <div class="day-hdr" data-tr="Çarşamba" data-fr="Mercredi">Çarşamba</div>
-      <div class="cls"><div class="t">09:00</div>Pilates</div>
-      <div class="cls kuvvet-c"><div class="t">13:30</div><span data-tr="Kuvvet" data-fr="Muscu.">Kuvvet</span></div>
-      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
-    </div>
-    <div class="day-col">
-      <div class="day-hdr" data-tr="Perşembe" data-fr="Jeudi">Perşembe</div>
-      <div class="cls"><div class="t">09:00</div>Pilates</div>
-      <div class="cls hiit-c"><div class="t">13:30</div>HIIT</div>
-      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
-    </div>
-    <div class="day-col">
-      <div class="day-hdr" data-tr="Cuma" data-fr="Vendredi">Cuma</div>
-      <div class="cls kuvvet-c"><div class="t">09:00</div><span data-tr="Kuvvet" data-fr="Muscu.">Kuvvet</span></div>
-      <div class="cls"><div class="t">13:30</div>Pilates</div>
-      <div class="cls"><div class="t">19:30–20:30</div>Pilates</div>
-    </div>
-  </div>
+  <div class="week-grid reveal" id="week-grid" style="--reveal-d:160ms"></div>
 </section>
 
 <!-- RESERVATION -->
@@ -914,7 +918,8 @@ footer{
         <label class="flbl" data-tr="E-posta" data-fr="E-mail">E-posta</label>
         <input type="email" class="finp" id="eposta"
                data-tr-ph="ornek@email.com" data-fr-ph="exemple@email.com"
-               placeholder="ornek@email.com">
+               placeholder="ornek@email.com" oninput="validateEmail()">
+        <span id="email-err" style="display:none;font-size:12px;color:#C04040;margin-top:4px;"></span>
       </div>
       <div class="form-grp">
         <label class="flbl" data-tr="Telefon" data-fr="Téléphone">Telefon</label>
@@ -1040,6 +1045,38 @@ footer{
   </div>
 </section>
 
+<!-- CONTACT -->
+<section id="contact" class="sec contact-sec">
+  <div class="sec-label reveal" data-tr="Bize Ulaşın" data-fr="Contactez-nous">Bize Ulaşın</div>
+
+  <div class="contact-wrap reveal" style="--reveal-d:160ms">
+    <div class="cf-row">
+      <div class="cf-grp">
+        <label class="cf-lbl" data-tr="Adınız" data-fr="Prénom">Adınız<span class="cf-req">*</span></label>
+        <input class="cf-inp" id="cf-ad" type="text" data-tr-ph="Adınız" data-fr-ph="Prénom" placeholder="Adınız">
+      </div>
+      <div class="cf-grp">
+        <label class="cf-lbl" data-tr="Soyadınız" data-fr="Nom">Soyadınız<span class="cf-req">*</span></label>
+        <input class="cf-inp" id="cf-soyad" type="text" data-tr-ph="Soyadınız" data-fr-ph="Nom" placeholder="Soyadınız">
+      </div>
+    </div>
+    <div class="cf-grp">
+      <label class="cf-lbl" data-tr="E-posta" data-fr="E-mail">E-posta<span class="cf-req">*</span></label>
+      <input class="cf-inp" id="cf-email" type="email" data-tr-ph="ornek@email.com" data-fr-ph="exemple@email.com" placeholder="ornek@email.com">
+    </div>
+    <div class="cf-grp">
+      <label class="cf-lbl" data-tr="Konu" data-fr="Objet">Konu<span class="cf-req">*</span></label>
+      <input class="cf-inp" id="cf-konu" type="text" data-tr-ph="Mesajınızın konusu" data-fr-ph="Objet de votre message" placeholder="Mesajınızın konusu">
+    </div>
+    <div class="cf-grp">
+      <label class="cf-lbl" data-tr="Mesajınız" data-fr="Message">Mesajınız<span class="cf-req">*</span></label>
+      <textarea class="cf-ta" id="cf-mesaj" data-tr-ph="Mesajınızı buraya yazınız…" data-fr-ph="Écrivez votre message ici…" placeholder="Mesajınızı buraya yazınız…"></textarea>
+    </div>
+    <button class="cf-btn" id="cf-btn" onclick="sendContact()" data-tr="GÖNDERİN" data-fr="ENVOYER">GÖNDERİN</button>
+    <div class="cf-feedback" id="cf-feedback"></div>
+  </div>
+</section>
+
 <!-- BACK TO TOP -->
 <button class="back-to-top" id="backToTop" onclick="scrollTopPage()" aria-label="Başa dön">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--dark)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -1054,6 +1091,7 @@ footer{
     <a onclick="go('about')"         data-tr="Hakkımda"   data-fr="À propos">Hakkımda</a>
     <a onclick="go('reservation')"   data-tr="Randevu Al" data-fr="Réserver">Randevu Al</a>
     <a onclick="go('announcements')" data-tr="Duyurular"  data-fr="Annonces">Duyurular</a>
+    <a onclick="go('contact')"       data-tr="İletişim"   data-fr="Contact">İletişim</a>
     <a href="https://www.instagram.com/pilatesesra/" target="_blank" rel="noopener" class="f-insta">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
@@ -1258,11 +1296,36 @@ function changeMonth(delta) {
   renderCal();
 }
 
-function pickDay(d, el) {
+async function pickDay(d, el) {
   selectedDay = d;
   document.querySelectorAll('.cal-day').forEach(x => x.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('c-tarih').textContent = d + ' ' + MONTHS[lang][cur.getMonth()];
+
+  const y = cur.getFullYear();
+  const m = cur.getMonth() + 1;
+  const isoDate = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+  try {
+    const r = await fetch(`/api/slots?date=${isoDate}`);
+    const j = await r.json().catch(() => ({}));
+    const booked = j.booked || [];
+
+    document.querySelectorAll('.slot-btn').forEach(btn => {
+      const time = btn.getAttribute('onclick')?.match(/'(\d{2}:\d{2})'/)?.[1];
+      if (!time) return;
+      if (booked.includes(time)) {
+        btn.classList.add('booked');
+        btn.classList.remove('on');
+        if (selectedSlot === time) {
+          selectedSlot = '';
+          document.getElementById('c-saat').textContent = '—';
+        }
+      } else {
+        btn.classList.remove('booked');
+      }
+    });
+  } catch (_) {}
 }
 
 // ── RESERVATION ──────────────────────────────────────────
@@ -1288,6 +1351,108 @@ function getSelectedISODate() {
   return `${y}-${pad2(m)}-${pad2(selectedDay)}`;
 }
 
+// ── SCHEDULE ─────────────────────────────────────────────
+const DAY_TR = ['','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi','Pazar'];
+const DAY_FR = ['','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
+const CLASS_CSS = { 'HIIT': 'hiit-c', 'Kuvvet': 'kuvvet-c' };
+const CLASS_FR  = { 'Kuvvet': 'Muscu.' };
+
+async function loadSchedule() {
+  const grid = document.getElementById('week-grid');
+  if (!grid) return;
+  try {
+    const r = await fetch('/api/schedule');
+    const j = await r.json().catch(() => ({}));
+    if (!j.ok || !j.data?.length) return;
+
+    const byDay = {};
+    j.data.forEach(row => {
+      if (!byDay[row.day_of_week]) byDay[row.day_of_week] = [];
+      byDay[row.day_of_week].push(row);
+    });
+
+    const days = Object.keys(byDay).map(Number).sort((a,b) => a-b);
+    grid.style.gridTemplateColumns = `repeat(${days.length},1fr)`;
+
+    grid.innerHTML = days.map(d => {
+      const dayTr = DAY_TR[d] || d;
+      const dayFr = DAY_FR[d] || d;
+      const classes = byDay[d].map(row => {
+        const css = CLASS_CSS[row.class_type] || '';
+        const label = lang === 'fr' ? (CLASS_FR[row.class_type] || row.class_type) : row.class_type;
+        return `<div class="cls ${css}"><div class="t">${row.time}</div>${label}</div>`;
+      }).join('');
+      return `<div class="day-col">
+        <div class="day-hdr">${lang === 'fr' ? dayFr : dayTr}</div>
+        ${classes}
+      </div>`;
+    }).join('');
+  } catch (_) {}
+}
+
+// ── CONTACT FORM ─────────────────────────────────────────
+async function sendContact() {
+  const ad    = document.getElementById('cf-ad').value.trim();
+  const soyad = document.getElementById('cf-soyad').value.trim();
+  const email = document.getElementById('cf-email').value.trim();
+  const konu  = document.getElementById('cf-konu').value.trim();
+  const mesaj = document.getElementById('cf-mesaj').value.trim();
+  const fb    = document.getElementById('cf-feedback');
+  const btn   = document.getElementById('cf-btn');
+
+  fb.style.display = 'none';
+
+  if (!ad || !soyad || !email || !konu || !mesaj) {
+    fb.textContent = lang === 'tr' ? 'Lütfen tüm alanları doldurun.' : 'Veuillez remplir tous les champs.';
+    fb.className = 'cf-feedback err'; fb.style.display = 'block'; return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    fb.textContent = lang === 'tr' ? 'Geçersiz e-posta adresi.' : 'Adresse e-mail invalide.';
+    fb.className = 'cf-feedback err'; fb.style.display = 'block'; return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = lang === 'tr' ? 'GÖNDERİLİYOR…' : 'ENVOI…';
+
+  try {
+    const r = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ad, soyad, email, konu, mesaj, lang })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.ok) throw new Error(j.error || 'error');
+
+    fb.textContent = lang === 'tr'
+      ? 'Mesajınız iletildi. En kısa sürede dönüş yapılacaktır.'
+      : 'Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.';
+    fb.className = 'cf-feedback ok'; fb.style.display = 'block';
+    ['cf-ad','cf-soyad','cf-email','cf-konu','cf-mesaj'].forEach(id => document.getElementById(id).value = '');
+  } catch (e) {
+    fb.textContent = lang === 'tr' ? 'Bir hata oluştu. Lütfen tekrar deneyin.' : 'Une erreur s\'est produite. Veuillez réessayer.';
+    fb.className = 'cf-feedback err'; fb.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = lang === 'tr' ? 'GÖNDERİN' : 'ENVOYER';
+  }
+}
+
+function showEmailErr(msg) {
+  const el = document.getElementById('email-err');
+  if (!el) return;
+  if (msg) { el.textContent = msg; el.style.display = 'block'; }
+  else { el.textContent = ''; el.style.display = 'none'; }
+}
+
+function validateEmail() {
+  const ep = document.getElementById('eposta').value.trim();
+  if (!ep) { showEmailErr(''); return true; }
+  const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ep);
+  if (!valid) showEmailErr(lang === 'tr' ? 'Geçersiz e-posta adresi.' : 'Adresse e-mail invalide.');
+  else showEmailErr('');
+  return valid;
+}
+
 async function confirmer() {
   const ad = document.getElementById('ad').value.trim();
   const ep = document.getElementById('eposta').value.trim();
@@ -1295,6 +1460,12 @@ async function confirmer() {
   const note = document.getElementById('not') ? document.getElementById('not').value.trim() : '';
   const ders = document.getElementById('c-ders').textContent;
   const isoDate = getSelectedISODate();
+  if (ep && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ep)) {
+    showEmailErr(lang === 'tr' ? 'Geçersiz e-posta adresi.' : 'Adresse e-mail invalide.');
+    document.getElementById('eposta').focus();
+    return;
+  }
+  showEmailErr('');
   if (!ad || !selectedDay) {
     alert(lang === 'tr'
       ? 'Lütfen adınızı girin ve takvimden bir tarih seçin.'
@@ -1410,6 +1581,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 
 // ── INIT ─────────────────────────────────────────────────
 renderCal();
+loadSchedule();
 </script>
 </body>
 </html>

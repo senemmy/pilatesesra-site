@@ -103,7 +103,7 @@ module.exports = async (req, res) => {
           <p style="margin:0;"><b>Saat</b>: ${escapeHtml(time)}</p>
         </div>
         <p style="margin:0 0 6px;">Herhangi bir sorunuz olursa bize ulaşmaktan çekinmeyin.</p>
-        <p style="margin:0 0 6px;font-size:12px;color:#888;">Katılamayacaksanız seansınızı en az 24 saat öncesine kadar <a href="${cancelUrl(data.id, 'tr')}" style="color:#2E8B86;">buradan iptal edebilirsiniz</a>.</p>
+        <p style="margin:0 0 6px;font-size:12px;color:#888;">Katılamayacağınız seansınızı en az 24 saat öncesine kadar <a href="${cancelUrl(data.id, 'tr')}" style="color:#2E8B86;">buradan iptal edebilirsiniz</a>.</p>
         <p style="margin:0 0 24px;">Görüşmek üzere,<br/><b>PilatesEsra</b></p>
         <img src="${logoUrl}" alt="PilatesEsra" style="max-width:180px;opacity:0.85;display:block;" />
       </div>

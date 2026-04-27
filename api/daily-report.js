@@ -47,6 +47,11 @@ module.exports = async (req, res) => {
         <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${r.email || "—"}</td>
         <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${r.phone || "—"}</td>
         <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${r.note || "—"}</td>
+        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">
+          ${r.status === "cancelled"
+            ? '<span style="color:#C04040;font-weight:500;">İptal</span>'
+            : '<span style="color:#1d8784;font-weight:500;">Onaylı</span>'}
+        </td>
       </tr>
     `).join("");
 
@@ -65,6 +70,7 @@ module.exports = async (req, res) => {
               <th style="padding:10px 14px;text-align:left;">E-posta</th>
               <th style="padding:10px 14px;text-align:left;">Telefon</th>
               <th style="padding:10px 14px;text-align:left;">Not</th>
+              <th style="padding:10px 14px;text-align:left;">Durum</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
