@@ -100,12 +100,37 @@ nav{
 /* ── HERO ── */
 .hero{
   display:flex;flex-direction:column;
+  position:relative;
+  overflow:hidden;
   background:linear-gradient(180deg, rgba(196,224,223,0.55) 0%, var(--cream) 52%);
   border-bottom:1px solid rgba(46,139,134,0.14);
+}
+.hero-figure{
+  position:absolute;
+  right:6%;
+  top:50%;
+  transform:translateY(-50%);
+  width:clamp(120px,16vw,220px);
+  height:auto;
+  opacity:0.9;
+  pointer-events:none;
+  z-index:0;
 }
 .hero-text{
   padding:4rem 3.5rem 3rem;
   display:flex;flex-direction:column;align-items:flex-start;
+  position:relative;
+  z-index:1;
+}
+@media(max-width:900px){
+  .hero-figure{
+    right:4%;
+    width:clamp(90px,22vw,160px);
+    opacity:0.85;
+  }
+}
+@media(max-width:560px){
+  .hero-figure{display:none;}
 }
 .hero-img{
   overflow-x:auto;overflow-y:hidden;
@@ -486,6 +511,7 @@ footer{
 
 <!-- HERO -->
 <div class="hero">
+  <img class="hero-figure" src="assets/images/hero-figure.png" alt="" aria-hidden="true">
   <div class="hero-text">
     <div class="eyebrow" data-tr="Pilates · HIIT · Stretching · Mobility" data-fr="Pilates · HIIT · Étirements · Mobilité">Pilates · HIIT · Stretching · Mobility</div>
     <h1 class="hero-title">
