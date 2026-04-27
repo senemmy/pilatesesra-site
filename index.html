@@ -1200,20 +1200,62 @@ function updateConfirm() {
   if (n) document.getElementById('c-isim').textContent = n.value.trim() || '—';
 }
 
-function confirmer() {
+function pad2(n){return String(n).padStart(2,'0');}
+function getSelectedISODate() {
+  if (!selectedDay) return null;
+  const y = cur.getFullYear();
+  const m = cur.getMonth() + 1;
+  return `${y}-${pad2(m)}-${pad2(selectedDay)}`;
+}
+
+async function confirmer() {
   const ad = document.getElementById('ad').value.trim();
   const ep = document.getElementById('eposta').value.trim();
+  const tel = document.getElementById('tel') ? document.getElementById('tel').value.trim() : '';
+  const note = document.getElementById('not') ? document.getElementById('not').value.trim() : '';
+  const ders = document.getElementById('c-ders').textContent;
+  const isoDate = getSelectedISODate();
   if (!ad || !selectedDay) {
     alert(lang === 'tr'
       ? 'Lütfen adınızı girin ve takvimden bir tarih seçin.'
       : 'Veuillez entrer votre nom et sélectionner une date dans le calendrier.');
     return;
   }
-  const dateStr = selectedDay + ' ' + MONTHS[lang][cur.getMonth()] + ' ' + cur.getFullYear();
-  const msg = lang === 'tr'
-    ? `✓ Randevunuz alındı!\n\nDers: ${document.getElementById('c-ders').textContent}\nTarih: ${dateStr}\nSaat: ${selectedSlot}\nİsim: ${ad}\n\nOnay ${ep ? 'e-postası gönderilecek: ' + ep : 'bilgileri kaydedildi.'}`
-    : `✓ Réservation confirmée !\n\nCours : ${document.getElementById('c-ders').textContent}\nDate : ${dateStr}\nHeure : ${selectedSlot}\nNom : ${ad}\n\n${ep ? 'Email de confirmation envoyé à : ' + ep : 'Vos informations ont été enregistrées.'}`;
-  alert(msg);
+  if (!isoDate) return;
+
+  const btn = document.querySelector('.btn-confirm');
+  const prev = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; btn.textContent = (lang === 'tr' ? 'GÖNDERİLİYOR…' : 'ENVOI…'); }
+
+  try {
+    const r = await fetch('/api/reservations', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        full_name: ad,
+        email: ep,
+        phone: tel,
+        note,
+        class_type: ders,
+        date: isoDate,
+        time: selectedSlot,
+        lang
+      })
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.ok) throw new Error(j.error || 'İşlem başarısız');
+
+    const dateStr = selectedDay + ' ' + MONTHS[lang][cur.getMonth()] + ' ' + cur.getFullYear();
+    alert(lang === 'tr'
+      ? `✓ Rezervasyon alındı.\n\nDers: ${ders}\nTarih: ${dateStr}\nSaat: ${selectedSlot}\nİsim: ${ad}\n\nMail gönderildi.`
+      : `✓ Réservation confirmée.\n\nCours : ${ders}\nDate : ${dateStr}\nHeure : ${selectedSlot}\nNom : ${ad}\n\nEmail envoyé.`);
+  } catch (e) {
+    alert(lang === 'tr'
+      ? `Bir hata oluştu. Lütfen tekrar deneyin.\n\nDetay: ${e.message || e}`
+      : `Une erreur s'est produite. Veuillez réessayer.\n\nDétail : ${e.message || e}`);
+  } finally {
+    if (btn) { btn.disabled = false; btn.style.opacity = '1'; btn.textContent = prev; }
+  }
 }
 
 // ── HERO SLIDER DRAG ─────────────────────────────────────
