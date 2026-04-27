@@ -88,25 +88,38 @@ module.exports = async (req, res) => {
       </div>
     `;
 
+    const siteUrl = process.env.SITE_URL || "https://pilatesesra.com";
+    const logoUrl = `${siteUrl}/assets/images/pilates-esra-font.png`;
+
     const userHtmlTr = `
-      <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6">
-        <h2 style="margin:0 0 12px">Rezervasyonunuz alındı</h2>
-        <p style="margin:0 0 10px">Merhaba ${escapeHtml(full_name)},</p>
-        <p style="margin:0 0 10px"><b>Ders</b>: ${escapeHtml(class_type)}<br/>
-        <b>Tarih</b>: ${escapeHtml(prettyDateTr)}<br/>
-        <b>Saat</b>: ${escapeHtml(time)}</p>
-        <p style="margin:0">Görüşmek üzere.</p>
+      <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6;max-width:520px;">
+        <h2 style="margin:0 0 12px;color:#142826;">Rezervasyonunuz alındı</h2>
+        <p style="margin:0 0 10px;">Merhaba ${escapeHtml(full_name)},</p>
+        <p style="margin:0 0 16px;">Rezervasyonunuz başarıyla oluşturuldu. Aşağıda ders bilgilerinizi bulabilirsiniz:</p>
+        <div style="background:#f5f0e8;border-left:3px solid #2E8B86;padding:14px 18px;border-radius:4px;margin-bottom:20px;">
+          <p style="margin:0 0 6px;"><b>Ders</b>: ${escapeHtml(class_type)}</p>
+          <p style="margin:0 0 6px;"><b>Tarih</b>: ${escapeHtml(prettyDateTr)}</p>
+          <p style="margin:0;"><b>Saat</b>: ${escapeHtml(time)}</p>
+        </div>
+        <p style="margin:0 0 6px;">Herhangi bir sorunuz olursa bize ulaşmaktan çekinmeyin.</p>
+        <p style="margin:0 0 24px;">Görüşmek üzere,<br/><b>PilatesEsra</b></p>
+        <img src="${logoUrl}" alt="PilatesEsra" style="max-width:180px;opacity:0.85;display:block;" />
       </div>
     `;
 
     const userHtmlFr = `
-      <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6">
-        <h2 style="margin:0 0 12px">Votre réservation est confirmée</h2>
-        <p style="margin:0 0 10px">Bonjour ${escapeHtml(full_name)},</p>
-        <p style="margin:0 0 10px"><b>Cours</b> : ${escapeHtml(class_type)}<br/>
-        <b>Date</b> : ${escapeHtml(date)}<br/>
-        <b>Heure</b> : ${escapeHtml(time)}</p>
-        <p style="margin:0">À très bientôt.</p>
+      <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6;max-width:520px;">
+        <h2 style="margin:0 0 12px;color:#142826;">Votre réservation est confirmée</h2>
+        <p style="margin:0 0 10px;">Bonjour ${escapeHtml(full_name)},</p>
+        <p style="margin:0 0 16px;">Votre réservation a bien été enregistrée. Retrouvez ci-dessous le détail de votre cours :</p>
+        <div style="background:#f5f0e8;border-left:3px solid #2E8B86;padding:14px 18px;border-radius:4px;margin-bottom:20px;">
+          <p style="margin:0 0 6px;"><b>Cours</b> : ${escapeHtml(class_type)}</p>
+          <p style="margin:0 0 6px;"><b>Date</b> : ${escapeHtml(date)}</p>
+          <p style="margin:0;"><b>Heure</b> : ${escapeHtml(time)}</p>
+        </div>
+        <p style="margin:0 0 6px;">N'hésitez pas à nous contacter si vous avez la moindre question.</p>
+        <p style="margin:0 0 24px;">À très bientôt,<br/><b>PilatesEsra</b></p>
+        <img src="${logoUrl}" alt="PilatesEsra" style="max-width:180px;opacity:0.85;display:block;" />
       </div>
     `;
 
