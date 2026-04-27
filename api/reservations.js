@@ -90,6 +90,7 @@ module.exports = async (req, res) => {
 
     const siteUrl = process.env.SITE_URL || "https://pilatesesra.com";
     const logoUrl = `${siteUrl}/assets/images/pilates-esra-font.png`;
+    const cancelUrl = (id, l) => `${siteUrl}/cancel.html?id=${id}&lang=${l}`;
 
     const userHtmlTr = `
       <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;line-height:1.6;max-width:520px;">
@@ -102,6 +103,7 @@ module.exports = async (req, res) => {
           <p style="margin:0;"><b>Saat</b>: ${escapeHtml(time)}</p>
         </div>
         <p style="margin:0 0 6px;">Herhangi bir sorunuz olursa bize ulaşmaktan çekinmeyin.</p>
+        <p style="margin:0 0 6px;font-size:12px;color:#888;">Katılamayacaksanız seansınızı en az 24 saat öncesine kadar <a href="${cancelUrl(data.id, 'tr')}" style="color:#2E8B86;">buradan iptal edebilirsiniz</a>.</p>
         <p style="margin:0 0 24px;">Görüşmek üzere,<br/><b>PilatesEsra</b></p>
         <img src="${logoUrl}" alt="PilatesEsra" style="max-width:180px;opacity:0.85;display:block;" />
       </div>
@@ -118,6 +120,7 @@ module.exports = async (req, res) => {
           <p style="margin:0;"><b>Heure</b> : ${escapeHtml(time)}</p>
         </div>
         <p style="margin:0 0 6px;">N'hésitez pas à nous contacter si vous avez la moindre question.</p>
+        <p style="margin:0 0 6px;font-size:12px;color:#888;">Si vous ne pouvez pas venir, vous pouvez <a href="${cancelUrl(data.id, 'fr')}" style="color:#2E8B86;">annuler votre séance ici</a> jusqu'à 24h avant.</p>
         <p style="margin:0 0 24px;">À très bientôt,<br/><b>PilatesEsra</b></p>
         <img src="${logoUrl}" alt="PilatesEsra" style="max-width:180px;opacity:0.85;display:block;" />
       </div>

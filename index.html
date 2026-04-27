@@ -376,6 +376,20 @@ nav{
 .reservation-sec{background:var(--cream);}
 .reservation-sec .sec-label{color:var(--teal);}
 .reservation-sec .sec-title{color:var(--dark);}
+.cancel-policy{
+  margin-top:1.8rem;
+  background:var(--white);
+  border:1px solid rgba(46,139,134,0.14);
+  border-left:3px solid var(--gold);
+  border-radius:4px;
+  padding:1.1rem 1.3rem;
+  box-shadow:0 1px 10px rgba(20,40,38,0.04);
+}
+.cancel-policy-title{
+  font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:0.5rem;
+}
+.cancel-policy p{font-size:13px;color:var(--text);line-height:1.8;margin:0;opacity:0.9;}
 .resa-grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;}
 .form-grp{display:flex;flex-direction:column;gap:5px;margin-bottom:0.9rem;}
 .flbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--teal);}
@@ -970,6 +984,13 @@ footer{
         <div class="cal-days" id="cal-days"></div>
       </div>
     </div>
+  </div>
+  <div class="cancel-policy reveal" style="--reveal-d:200ms">
+    <div class="cancel-policy-title" data-tr="Seans İptali" data-fr="Annulation de séance">Seans İptali</div>
+    <p data-tr="Derse katılamayacağınız durumlarda seansınızı en az 24 saat öncesine kadar online olarak iptal edebilirsiniz. Onay mailinizde yer alan iptal bağlantısını kullanabilirsiniz. 24 saatten daha kısa süre kala yapılan iptallerde seans ücreti faturalandırılacaktır."
+       data-fr="Si vous ne pouvez pas assister à votre cours, vous pouvez l'annuler en ligne jusqu'à 24 heures avant la séance via le lien présent dans votre e-mail de confirmation. Toute annulation effectuée moins de 24 heures avant la séance sera facturée.">
+      Derse katılamayacağınız durumlarda seansınızı en az 24 saat öncesine kadar online olarak iptal edebilirsiniz. Onay mailinizde yer alan iptal bağlantısını kullanabilirsiniz. 24 saatten daha kısa süre kala yapılan iptallerde seans ücreti faturalandırılacaktır.
+    </p>
   </div>
 </section>
 

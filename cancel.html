@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seans İptali · PilatesEsra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --teal:#2E8B86;--gold:#C09040;--gold-light:#D4AA62;
+  --cream:#F5F0E8;--dark:#142826;--text:#2A3A39;--white:#FFFFFF;--sand:#D0BEA0;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2.5rem;background:var(--dark);}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:22px;color:#F5F0E8;letter-spacing:3px;font-style:italic;text-decoration:none;}
+.nav-logo span{color:var(--gold);}
+.wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 1.5rem;}
+.card{background:var(--white);border:1px solid rgba(46,139,134,0.14);border-radius:8px;padding:2.5rem;max-width:480px;width:100%;box-shadow:0 4px 24px rgba(20,40,38,0.08);}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--dark);margin-bottom:0.5rem;}
+.card-sub{font-size:13px;color:var(--text);opacity:0.75;margin-bottom:1.8rem;line-height:1.7;}
+.info-box{background:var(--cream);border-left:3px solid var(--teal);border-radius:4px;padding:1rem 1.2rem;margin-bottom:1.5rem;}
+.info-row{display:flex;justify-content:space-between;font-size:13px;padding:4px 0;}
+.info-row .lbl{color:var(--teal);}
+.info-row .val{color:var(--dark);font-weight:500;}
+.policy{font-size:12px;color:var(--text);opacity:0.65;line-height:1.7;margin-bottom:1.5rem;padding:0.8rem 1rem;border:1px solid rgba(192,144,64,0.25);border-radius:4px;background:rgba(192,144,64,0.04);}
+.btn-cancel{width:100%;padding:0.85rem;background:var(--gold);color:var(--dark);border:none;font-family:'DM Sans',sans-serif;font-size:12px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background 0.2s;}
+.btn-cancel:hover{background:var(--gold-light);}
+.btn-cancel:disabled{opacity:0.6;cursor:not-allowed;}
+.state{text-align:center;padding:1.5rem 0;}
+.state-icon{font-size:40px;margin-bottom:0.8rem;}
+.state-title{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--dark);margin-bottom:0.5rem;}
+.state-msg{font-size:13px;color:var(--text);opacity:0.8;line-height:1.7;}
+.state-msg a{color:var(--teal);}
+.error-msg{font-size:13px;color:#C04040;margin-top:0.8rem;display:none;}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="/">Pilates<span>Esra</span></a>
+</nav>
+<div class="wrap">
+  <div class="card">
+    <!-- Loading -->
+    <div id="view-loading" class="state">
+      <div class="state-msg">Rezervasyon bilgileri yükleniyor…</div>
+    </div>
+    <!-- Confirm -->
+    <div id="view-confirm" style="display:none;">
+      <div class="card-title" id="title-text">Seans İptali</div>
+      <p class="card-sub" id="sub-text">Aşağıdaki seansınızı iptal etmek istediğinizden emin misiniz?</p>
+      <div class="info-box">
+        <div class="info-row"><span class="lbl">Ders</span><span class="val" id="r-class">—</span></div>
+        <div class="info-row"><span class="lbl">Tarih</span><span class="val" id="r-date">—</span></div>
+        <div class="info-row"><span class="lbl">Saat</span><span class="val" id="r-time">—</span></div>
+        <div class="info-row"><span class="lbl">İsim</span><span class="val" id="r-name">—</span></div>
+      </div>
+      <div class="policy" id="policy-text">⚠️ 24 saatten daha kısa süre kala yapılan iptallerde seans ücreti faturalandırılacaktır.</div>
+      <button class="btn-cancel" id="btn-confirm" onclick="doCancel()">Seansı İptal Et</button>
+      <div class="error-msg" id="error-msg"></div>
+    </div>
+    <!-- Success -->
+    <div id="view-success" style="display:none;" class="state">
+      <div class="state-icon">✓</div>
+      <div class="state-title" id="success-title">Rezervasyon iptal edildi</div>
+      <p class="state-msg" id="success-msg">Seansınız başarıyla iptal edildi. Onay maili gönderildi.<br/><br/><a href="/">Ana sayfaya dön</a></p>
+    </div>
+    <!-- Error -->
+    <div id="view-error" style="display:none;" class="state">
+      <div class="state-icon">✕</div>
+      <div class="state-title" id="err-title">Bir hata oluştu</div>
+      <p class="state-msg" id="err-msg"><a href="/">Ana sayfaya dön</a></p>
+    </div>
+  </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');
+const lang = params.get('lang') || 'tr';
+
+const TR = {
+  title: 'Seans İptali',
+  sub: 'Aşağıdaki seansınızı iptal etmek istediğinizden emin misiniz?',
+  policy: '⚠️ 24 saatten daha kısa süre kala yapılan iptallerde seans ücreti faturalandırılacaktır.',
+  btn: 'SEANSI İPTAL ET',
+  successTitle: 'Rezervasyon iptal edildi',
+  successMsg: 'Seansınız başarıyla iptal edildi. Onay maili gönderildi.',
+  home: 'Ana sayfaya dön',
+  noId: 'Geçersiz iptal bağlantısı.',
+  notFound: 'Rezervasyon bulunamadı.',
+  alreadyCancelled: 'Bu rezervasyon zaten iptal edilmiş.',
+  tooLate: '24 saatten az kaldığı için online iptal yapılamamaktadır. Lütfen stüdyoyla iletişime geçin.',
+  loading: 'İptal işlemi yapılıyor…'
+};
+const FR = {
+  title: 'Annulation de séance',
+  sub: 'Êtes-vous sûr(e) de vouloir annuler cette séance ?',
+  policy: '⚠️ Toute annulation effectuée moins de 24 heures avant la séance sera facturée.',
+  btn: 'ANNULER LA SÉANCE',
+  successTitle: 'Réservation annulée',
+  successMsg: 'Votre séance a bien été annulée. Un e-mail de confirmation vous a été envoyé.',
+  home: 'Retour à l\'accueil',
+  noId: 'Lien d\'annulation invalide.',
+  notFound: 'Réservation introuvable.',
+  alreadyCancelled: 'Cette réservation a déjà été annulée.',
+  tooLate: 'L\'annulation en ligne n\'est plus possible à moins de 24h. Veuillez contacter le studio.',
+  loading: 'Annulation en cours…'
+};
+const t = lang === 'fr' ? FR : TR;
+
+function show(viewId) {
+  ['view-loading','view-confirm','view-success','view-error'].forEach(v => {
+    document.getElementById(v).style.display = v === viewId ? '' : 'none';
+  });
+}
+
+function showError(msg) {
+  document.getElementById('err-title').textContent = t.title;
+  document.getElementById('err-msg').innerHTML = msg + '<br/><br/><a href="/">' + t.home + '</a>';
+  show('view-error');
+}
+
+async function loadReservation() {
+  if (!id) { showError(t.noId); return; }
+
+  const r = await fetch(`/api/reservation?id=${encodeURIComponent(id)}`);
+  const j = await r.json().catch(() => ({}));
+
+  if (!j.ok) {
+    showError(j.error === 'not_found' ? t.notFound : t.noId);
+    return;
+  }
+
+  const data = j.reservation;
+  if (data.status === 'cancelled') { showError(t.alreadyCancelled); return; }
+
+  const prettyDate = data.date.split('-').reverse().join('.');
+  document.getElementById('r-class').textContent = data.class_type;
+  document.getElementById('r-date').textContent = prettyDate;
+  document.getElementById('r-time').textContent = data.time;
+  document.getElementById('r-name').textContent = data.full_name;
+  document.getElementById('title-text').textContent = t.title;
+  document.getElementById('sub-text').textContent = t.sub;
+  document.getElementById('policy-text').textContent = t.policy;
+  document.getElementById('btn-confirm').textContent = t.btn;
+  show('view-confirm');
+}
+
+async function doCancel() {
+  const btn = document.getElementById('btn-confirm');
+  const errEl = document.getElementById('error-msg');
+  btn.disabled = true;
+  btn.textContent = t.loading;
+  errEl.style.display = 'none';
+
+  const r = await fetch('/api/cancel', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, lang })
+  });
+  const j = await r.json().catch(() => ({}));
+
+  if (j.ok) {
+    document.getElementById('success-title').textContent = t.successTitle;
+    document.getElementById('success-msg').innerHTML = t.successMsg + '<br/><br/><a href="/">' + t.home + '</a>';
+    show('view-success');
+  } else {
+    btn.disabled = false;
+    btn.textContent = t.btn;
+    errEl.style.display = 'block';
+    errEl.textContent = j.error === 'too_late' ? t.tooLate
+      : j.error === 'already_cancelled' ? t.alreadyCancelled
+      : j.error || 'Bir hata oluştu.';
+  }
+}
+
+loadReservation();
+</script>
+</body>
+</html>
