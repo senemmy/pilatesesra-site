@@ -1232,6 +1232,7 @@ function setLang(l) {
 
   renderCal();
   updateConfirm();
+  renderSchedule();
 }
 
 // ── CALENDAR ─────────────────────────────────────────────
@@ -1387,9 +1388,40 @@ function getSelectedISODate() {
 const DAY_TR = ['','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi','Pazar'];
 const DAY_FR = ['','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'];
 const CLASS_CSS = { 'Kardiyo': 'hiit-c', 'Kuvvet': 'kuvvet-c' };
-const CLASS_FR  = { 'Kuvvet': 'Muscu.' };
+const CLASS_FR  = {
+  'Pilates': 'Pilates',
+  'Kardiyo': 'Cardio',
+  'Kuvvet': 'Musculation',
+  'Esneme': 'Étirements',
+  'Stretching': 'Étirements',
+  'Mobilite': 'Mobilité',
+  'Mobilité': 'Mobilité',
+  'Aletli Pilates': 'Pilates sur appareils',
+  'Mat Pilates': 'Pilates au sol',
+  'HIIT': 'HIIT',
+};
 
 let scheduleData = {};
+
+function renderSchedule() {
+  const grid = document.getElementById('week-grid');
+  if (!grid || !Object.keys(scheduleData).length) return;
+  const days = Object.keys(scheduleData).map(Number).sort((a,b) => a-b);
+  grid.style.gridTemplateColumns = `repeat(${days.length},1fr)`;
+  grid.innerHTML = days.map(d => {
+    const dayTr = DAY_TR[d] || d;
+    const dayFr = DAY_FR[d] || d;
+    const classes = scheduleData[d].map(row => {
+      const css = CLASS_CSS[row.class_type] || '';
+      const label = lang === 'fr' ? (CLASS_FR[row.class_type] || row.class_type) : row.class_type;
+      return `<div class="cls ${css}"><div class="t">${row.time}</div>${label}</div>`;
+    }).join('');
+    return `<div class="day-col">
+      <div class="day-hdr">${lang === 'fr' ? dayFr : dayTr}</div>
+      ${classes}
+    </div>`;
+  }).join('');
+}
 
 async function loadSchedule() {
   const grid = document.getElementById('week-grid');
@@ -1398,30 +1430,13 @@ async function loadSchedule() {
     const r = await fetch('/api/schedule');
     const j = await r.json().catch(() => ({}));
     if (!j.ok || !j.data?.length) return;
-
     const byDay = {};
     j.data.forEach(row => {
       if (!byDay[row.day_of_week]) byDay[row.day_of_week] = [];
       byDay[row.day_of_week].push(row);
     });
     scheduleData = byDay;
-
-    const days = Object.keys(byDay).map(Number).sort((a,b) => a-b);
-    grid.style.gridTemplateColumns = `repeat(${days.length},1fr)`;
-
-    grid.innerHTML = days.map(d => {
-      const dayTr = DAY_TR[d] || d;
-      const dayFr = DAY_FR[d] || d;
-      const classes = byDay[d].map(row => {
-        const css = CLASS_CSS[row.class_type] || '';
-        const label = lang === 'fr' ? (CLASS_FR[row.class_type] || row.class_type) : row.class_type;
-        return `<div class="cls ${css}"><div class="t">${row.time}</div>${label}</div>`;
-      }).join('');
-      return `<div class="day-col">
-        <div class="day-hdr">${lang === 'fr' ? dayFr : dayTr}</div>
-        ${classes}
-      </div>`;
-    }).join('');
+    renderSchedule();
   } catch (_) {}
 }
 
