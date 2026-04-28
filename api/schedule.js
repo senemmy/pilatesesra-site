@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
 
     const { data, error } = await supabase
       .from("schedule")
-      .select("day_of_week, time, class_type")
+      .select("day_of_week, time, class_type, class_type_fr")
       .eq("is_active", true)
       .order("day_of_week", { ascending: true })
       .order("sort_order", { ascending: true });

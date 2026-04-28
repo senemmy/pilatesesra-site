@@ -832,7 +832,6 @@ footer{
   <div class="edu-sub-label" data-tr="Sertifikalar" data-fr="Certifications">Sertifikalar</div>
   <div class="edu-grid">
     <div class="edu-card reveal reveal--left" style="--reveal-d:0ms">
-      <div class="yr">2026</div>
       <div class="ttl">CQP ALS AGEE</div>
       <div class="desc">Certificat de Qualification Professionnelle mention Animateur de Loisir Sportif option Activités Gymniques d'Entretien et d'Expression</div>
     </div>
@@ -1413,7 +1412,7 @@ function renderSchedule() {
     const dayFr = DAY_FR[d] || d;
     const classes = scheduleData[d].map(row => {
       const css = CLASS_CSS[row.class_type] || '';
-      const label = lang === 'fr' ? (CLASS_FR[row.class_type] || row.class_type) : row.class_type;
+      const label = lang === 'fr' ? (row.class_type_fr || CLASS_FR[row.class_type] || row.class_type) : row.class_type;
       return `<div class="cls ${css}"><div class="t">${row.time}</div>${label}</div>`;
     }).join('');
     return `<div class="day-col">
