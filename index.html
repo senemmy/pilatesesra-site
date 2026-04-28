@@ -753,7 +753,7 @@ footer{
       <div class="class-body">
         <div class="class-name" data-tr="Kardiyo" data-fr="Cardio">Kardiyo</div>
         <div class="class-meta" style="margin-top:0.4rem;">
-          <span data-tr="45 dk" data-fr="45 min">45 dk</span>
+          <span data-tr="50 dk" data-fr="50 min">50 dk</span>
         </div>
       </div>
     </div>
@@ -771,7 +771,7 @@ footer{
       <div class="class-body">
         <div class="class-name">Stretching</div>
         <div class="class-meta" style="margin-top:0.4rem;">
-          <span data-tr="45 dk" data-fr="45 min">45 dk</span>
+          <span data-tr="50 dk" data-fr="50 min">50 dk</span>
         </div>
       </div>
     </div>
@@ -811,7 +811,7 @@ footer{
       <div class="class-body">
         <div class="class-name" data-tr="Mobility & Denge" data-fr="Mobilité & Équilibre">Mobility & Denge</div>
         <div class="class-meta" style="margin-top:0.4rem;">
-          <span data-tr="45 dk" data-fr="45 min">45 dk</span>
+          <span data-tr="50 dk" data-fr="50 min">50 dk</span>
         </div>
       </div>
     </div>
@@ -903,7 +903,7 @@ footer{
     <div>
       <div class="form-grp">
         <label class="flbl" data-tr="Ders Türü" data-fr="Type de cours">Ders Türü</label>
-        <select class="fsel" id="ders" onchange="updateConfirm()">
+        <select class="fsel" id="ders" onchange="updateConfirm(); renderSlotsForClass(this.value);">
           <option value="Pilates">Pilates</option>
           <option value="Kardiyo" data-tr="Kardiyo" data-fr="Cardio">Kardiyo</option>
           <option id="opt-kuvvet" value="Kuvvet" data-tr="Kuvvet Antrenmanı" data-fr="Musculation">Kuvvet Antrenmanı</option>
@@ -1126,6 +1126,8 @@ let lenis = null;
 let lang = 'tr';
 let selectedSlot = '12:00';
 let selectedDay  = null;
+let dayFutureSlots = [];
+let currentIsoDate = null;
 let cur = new Date(); cur.setDate(1);
 
 const MONTHS = {
@@ -1342,6 +1344,9 @@ async function pickDay(d, el) {
   }
   enableConfirm();
 
+  dayFutureSlots = futureSlots;
+  currentIsoDate = isoDate;
+
   // Ders türü dropdown'ını seçilen günün derslerine göre güncelle
   const dersSelect = document.getElementById('ders');
   if (dersSelect) {
@@ -1358,20 +1363,31 @@ async function pickDay(d, el) {
     updateConfirm();
   }
 
-  row.innerHTML = futureSlots.map(s =>
+  await renderSlotsForClass(dersSelect ? dersSelect.value : null);
+}
+
+async function renderSlotsForClass(classType) {
+  const row = document.getElementById('slots-row');
+  if (!row) return;
+
+  const filtered = classType
+    ? dayFutureSlots.filter(s => s.class_type === classType)
+    : dayFutureSlots;
+
+  selectedSlot = '';
+  document.getElementById('c-saat').textContent = '—';
+
+  row.innerHTML = filtered.map(s =>
     `<button class="slot-btn" onclick="pickSlot(this,'${s.time}')">${s.time}</button>`
   ).join('');
 
+  if (!currentIsoDate) return;
   try {
-    const r = await fetch(`/api/slots?date=${isoDate}`);
+    const r = await fetch(`/api/slots?date=${currentIsoDate}`);
     const j = await r.json().catch(() => ({}));
     const booked = j.booked || [];
-
     row.querySelectorAll('.slot-btn').forEach(btn => {
-      const time = btn.textContent.trim();
-      if (booked.includes(time)) {
-        btn.classList.add('booked');
-      }
+      if (booked.includes(btn.textContent.trim())) btn.classList.add('booked');
     });
   } catch (_) {}
 }
