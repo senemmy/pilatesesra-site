@@ -18,6 +18,8 @@ module.exports = async (req, res) => {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const studioEmail = process.env.STUDIO_EMAIL;
     const fromEmail = process.env.FROM_EMAIL || "PilatesEsra <onboarding@resend.dev>";
+    const siteUrl = process.env.SITE_URL || "https://pilatesesra.com";
+    const logoImg = `<div style="margin-top:24px;text-align:center;"><img src="${siteUrl}/assets/images/pilates-esra-font.png" alt="PilatesEsra" style="height:80px;width:auto;opacity:0.85;"/></div>`;
 
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
     const id = String(body?.id || "").trim();
@@ -68,6 +70,7 @@ module.exports = async (req, res) => {
             </div>
             <p>Votre séance a bien été annulée. Nous espérons vous revoir bientôt.</p>
             <p>À bientôt,<br/><b>PilatesEsra</b></p>
+            ${logoImg}
           </div>` : `
           <div style="font-family:ui-sans-serif,system-ui,sans-serif;line-height:1.6;max-width:520px;">
             <h2 style="color:#142826;">Rezervasyonunuz iptal edildi</h2>
@@ -79,6 +82,7 @@ module.exports = async (req, res) => {
             </div>
             <p>Seansınız başarıyla iptal edildi. Sizi tekrar görmekten mutluluk duyarız.</p>
             <p>Görüşmek üzere,<br/><b>PilatesEsra</b></p>
+            ${logoImg}
           </div>`
       });
     }
