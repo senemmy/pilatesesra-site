@@ -1316,7 +1316,23 @@ async function pickDay(d, el) {
     return;
   }
 
-  row.innerHTML = daySlots.map(s =>
+  const now = new Date();
+  const isToday = (now.getFullYear() === y && now.getMonth() + 1 === m && now.getDate() === d);
+  const nowMins = now.getHours() * 60 + now.getMinutes();
+
+  const futureSlots = isToday ? daySlots.filter(s => {
+    const startStr = s.time.split(/[-–]/)[0].trim();
+    const [hh, mm] = startStr.split(':').map(Number);
+    return (hh * 60 + mm) > nowMins;
+  }) : daySlots;
+
+  if (!futureSlots.length) {
+    row.innerHTML = `<span style="font-size:12px;color:rgba(42,58,57,0.5);">
+      ${lang === 'fr' ? 'Aucun créneau disponible aujourd\'hui' : 'Bugün için uygun saat kalmadı'}</span>`;
+    return;
+  }
+
+  row.innerHTML = futureSlots.map(s =>
     `<button class="slot-btn" onclick="pickSlot(this,'${s.time}')">${s.time}</button>`
   ).join('');
 
