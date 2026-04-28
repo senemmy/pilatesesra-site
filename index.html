@@ -936,13 +936,8 @@ footer{
       <div class="slots-area">
         <div class="slots-lbl" data-tr="Uygun Saatler" data-fr="Créneaux Disponibles">Uygun Saatler</div>
         <div class="slots-row" id="slots-row">
-          <button class="slot-btn" onclick="pickSlot(this,'08:30')">08:30</button>
-          <button class="slot-btn" onclick="pickSlot(this,'11:00')">11:00</button>
-          <button class="slot-btn on" onclick="pickSlot(this,'12:00')">12:00</button>
-          <button class="slot-btn" onclick="pickSlot(this,'14:00')">14:00</button>
-          <div class="slot-full" id="slot-full-label" data-tr="18:30 (Dolu)" data-fr="18:30 (Complet)">18:30 (Dolu)</div>
-          <button class="slot-btn" onclick="pickSlot(this,'19:00')">19:00</button>
-          <button class="slot-btn" onclick="pickSlot(this,'19:30')">19:30</button>
+          <span class="slot-empty-msg" style="font-size:12px;color:rgba(42,58,57,0.5);"
+            data-tr="Tarih seçin" data-fr="Sélectionnez une date">Tarih seçin</span>
         </div>
       </div>
       <div class="confirm-box">
@@ -1301,28 +1296,39 @@ async function pickDay(d, el) {
   document.querySelectorAll('.cal-day').forEach(x => x.classList.remove('active'));
   el.classList.add('active');
   document.getElementById('c-tarih').textContent = d + ' ' + MONTHS[lang][cur.getMonth()];
+  selectedSlot = '';
+  document.getElementById('c-saat').textContent = '—';
 
   const y = cur.getFullYear();
   const m = cur.getMonth() + 1;
   const isoDate = `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+  // JS getDay(): 0=Paz,1=Pzt...6=Cmt → schedule: 1=Pzt...7=Paz
+  const jsDay = new Date(y, cur.getMonth(), d).getDay();
+  const dow = jsDay === 0 ? 7 : jsDay;
+  const daySlots = scheduleData[dow] || [];
+
+  const row = document.getElementById('slots-row');
+  if (!daySlots.length) {
+    row.innerHTML = `<span style="font-size:12px;color:rgba(42,58,57,0.5);"
+      data-tr="Bu gün için ders bulunmuyor" data-fr="Aucun cours ce jour">
+      ${lang === 'fr' ? 'Aucun cours ce jour' : 'Bu gün için ders bulunmuyor'}</span>`;
+    return;
+  }
+
+  row.innerHTML = daySlots.map(s =>
+    `<button class="slot-btn" onclick="pickSlot(this,'${s.time}')">${s.time}</button>`
+  ).join('');
 
   try {
     const r = await fetch(`/api/slots?date=${isoDate}`);
     const j = await r.json().catch(() => ({}));
     const booked = j.booked || [];
 
-    document.querySelectorAll('.slot-btn').forEach(btn => {
-      const time = btn.getAttribute('onclick')?.match(/'(\d{2}:\d{2})'/)?.[1];
-      if (!time) return;
+    row.querySelectorAll('.slot-btn').forEach(btn => {
+      const time = btn.textContent.trim();
       if (booked.includes(time)) {
         btn.classList.add('booked');
-        btn.classList.remove('on');
-        if (selectedSlot === time) {
-          selectedSlot = '';
-          document.getElementById('c-saat').textContent = '—';
-        }
-      } else {
-        btn.classList.remove('booked');
       }
     });
   } catch (_) {}
@@ -1357,6 +1363,8 @@ const DAY_FR = ['','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Diman
 const CLASS_CSS = { 'Kardiyo': 'hiit-c', 'Kuvvet': 'kuvvet-c' };
 const CLASS_FR  = { 'Kuvvet': 'Muscu.' };
 
+let scheduleData = {};
+
 async function loadSchedule() {
   const grid = document.getElementById('week-grid');
   if (!grid) return;
@@ -1370,6 +1378,7 @@ async function loadSchedule() {
       if (!byDay[row.day_of_week]) byDay[row.day_of_week] = [];
       byDay[row.day_of_week].push(row);
     });
+    scheduleData = byDay;
 
     const days = Object.keys(byDay).map(Number).sort((a,b) => a-b);
     grid.style.gridTemplateColumns = `repeat(${days.length},1fr)`;
