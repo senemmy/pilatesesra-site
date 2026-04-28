@@ -630,7 +630,6 @@ footer{
   <div class="about-photo reveal reveal--left" style="--reveal-d:0ms" aria-hidden="true"></div>
   <div class="about-content reveal reveal--right" style="--reveal-d:90ms">
     <div class="sec-label" data-tr="Hakkımda" data-fr="À propos">Hakkımda</div>
-    <div id="about-main-title" class="sec-title" data-tr="PilatesEsra Kimdir?" data-fr="Qui est PilatesEsra ?"><span class="about-brand">Pilates<span>Esra</span></span> Kimdir?</div>
     <p class="sec-body"
        data-tr="Küçük yaşlarda basketbol tutkusuyla başlayan spor yolculuğum, üniversite yıllarında farklı bir yöne evrilse de, zamanla kendimi ait hissettiğim alana geri döndüm."
        data-fr="Mon parcours sportif, qui a commencé avec une passion pour le basketball dès mon jeune âge, a pris une direction différente durant mes années universitaires, avant que je revienne vers le domaine où je me sens vraiment à ma place.">
@@ -1711,14 +1710,20 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
         obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.01, rootMargin: '0px 0px 0px 0px' });
 
-  // Double rAF: tarayıcının opacity:0 başlangıç durumunu boyamasını bekle
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     });
   });
+
+  // Safari/mobil fallback: 2sn sonra hâlâ görünmeyenleri aç
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
+      el.classList.add('is-visible');
+    });
+  }, 2000);
 })();
 
 // ── INIT ─────────────────────────────────────────────────
