@@ -26,7 +26,7 @@ module.exports = async (req, res) => {
 
     const { data, error } = await supabase
       .from("reservations")
-      .select("full_name, email, phone, class_type, date, time, note, status, created_at")
+      .select("full_name, email, phone, class_type, date, time, note, status, status_updated_at")
       .order("date", { ascending: true })
       .order("time", { ascending: true });
 
@@ -51,6 +51,7 @@ module.exports = async (req, res) => {
           ${r.status === "cancelled"
             ? '<span style="color:#C04040;font-weight:500;">İptal</span>'
             : '<span style="color:#1d8784;font-weight:500;">Onaylı</span>'}
+          ${r.status_updated_at ? `<br/><span style="font-size:11px;color:#999;">${new Date(r.status_updated_at).toLocaleString("tr-TR",{timeZone:"Europe/Istanbul",day:"2-digit",month:"2-digit",year:"numeric",hour:"2-digit",minute:"2-digit"})}</span>` : ""}
         </td>
       </tr>
     `).join("");

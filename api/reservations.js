@@ -60,6 +60,7 @@ module.exports = async (req, res) => {
           date,
           time,
           status: "confirmed",
+          status_updated_at: new Date().toISOString(),
           lang: lang || "tr"
         }
       ])

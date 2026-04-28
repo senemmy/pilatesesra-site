@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
 
     const { data, error } = await supabase
       .from("reservations")
-      .select("full_name, email, phone, class_type, date, time, note, status, created_at")
+      .select("full_name, email, phone, class_type, date, time, note, status, status_updated_at")
       .gte("date", weekStart)
       .lte("date", weekEnd)
       .order("date", { ascending: true })
@@ -46,9 +46,11 @@ module.exports = async (req, res) => {
 
     const prettyRange = `${weekStart} – ${weekEnd}`;
 
-    const statusLabel = s => s === "cancelled"
+    const fmtTime = iso => iso ? new Date(iso).toLocaleString("tr-TR", { timeZone: "Europe/Istanbul", day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "";
+    const statusLabel = (s, updatedAt) => (s === "cancelled"
       ? '<span style="color:#C04040;font-weight:500;">İptal</span>'
-      : '<span style="color:#1d8784;font-weight:500;">Onaylı</span>';
+      : '<span style="color:#1d8784;font-weight:500;">Onaylı</span>')
+      + (updatedAt ? `<br/><span style="font-size:11px;color:#999;">${fmtTime(updatedAt)}</span>` : "");
 
     const rows = (data || []).map((r, i) => `
       <tr style="background:${i % 2 === 0 ? "#f9f7f4" : "#ffffff"}">
@@ -60,7 +62,7 @@ module.exports = async (req, res) => {
         <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${r.email || "—"}</td>
         <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${r.phone || "—"}</td>
         <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${r.note || "—"}</td>
-        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${statusLabel(r.status)}</td>
+        <td style="padding:10px 14px;border-bottom:1px solid #e8e0d4;">${statusLabel(r.status, r.status_updated_at)}</td>
       </tr>
     `).join("");
 

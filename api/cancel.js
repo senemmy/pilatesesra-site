@@ -46,7 +46,7 @@ module.exports = async (req, res) => {
     }
 
     // İptal et
-    await supabase.from("reservations").update({ status: "cancelled" }).eq("id", id);
+    await supabase.from("reservations").update({ status: "cancelled", status_updated_at: new Date().toISOString() }).eq("id", id);
 
     const prettyDate = reservation.date.split("-").reverse().join(".");
 
