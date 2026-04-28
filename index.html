@@ -1059,9 +1059,9 @@ footer{
       <div class="ann-date" data-tr="15 Mart 2026" data-fr="15 Mars 2026">15 Mart 2026</div>
       <div class="ann-title" data-tr="Online Dersler Genişliyor" data-fr="Cours en Ligne Élargis">Online Dersler Genişliyor</div>
       <p class="ann-body"
-         data-tr="Zoom üzerinden online Pilates ve Kardiyo derslerine katılabilirsiniz. Yurt dışında yaşayanlar ve yoğun programlı olanlar için ideal, esnek seçenek."
-         data-fr="Rejoignez maintenant nos cours de Pilates et Cardio en ligne via Zoom. Option idéale et flexible pour les personnes à l'étranger ou avec un emploi du temps chargé.">
-        Zoom üzerinden online Pilates ve Kardiyo derslerine katılabilirsiniz. Yurt dışındakiler için ideal.
+         data-tr="Zoom üzerinden online Pilates ve Kardiyo derslerine katılabilirsiniz."
+         data-fr="Rejoignez maintenant nos cours de Pilates et Cardio en ligne via Zoom.">
+        Zoom üzerinden online Pilates ve Kardiyo derslerine katılabilirsiniz.
       </p>
     </div>
     <div class="ann-card ann-cancel">
@@ -1506,11 +1506,13 @@ function renderSchedule() {
   if (!grid || !Object.keys(scheduleData).length) return;
   const days = Object.keys(scheduleData).map(Number).sort((a,b) => a-b);
   grid.style.gridTemplateColumns = `repeat(${days.length},1fr)`;
-  grid.innerHTML = days.map(d => {
+  grid.innerHTML = days.map((d, di) => {
     const dayTr = DAY_TR[d] || d;
     const dayFr = DAY_FR[d] || d;
-    const classes = scheduleData[d].map(row => {
-      const css = CLASS_CSS[row.class_type] || '';
+    const startLight = di % 2 === 0; // Pzt/Çar/Cum açıkla başlar, Sal/Per koyu ile başlar
+    const classes = scheduleData[d].map((row, si) => {
+      const isLight = startLight ? (si % 2 === 0) : (si % 2 === 1);
+      const css = isLight ? '' : 'hiit-c';
       const label = lang === 'fr' ? (row.class_type_fr || CLASS_FR[row.class_type] || row.class_type) : row.class_type;
       return `<div class="cls ${css}"><div class="t">${row.time}</div>${label}</div>`;
     }).join('');
