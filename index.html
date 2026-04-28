@@ -1309,10 +1309,18 @@ async function pickDay(d, el) {
   const daySlots = scheduleData[dow] || [];
 
   const row = document.getElementById('slots-row');
+  const confirmBtn = document.querySelector('.btn-confirm');
+
+  function disableConfirm(msg) {
+    row.innerHTML = `<span style="font-size:12px;color:rgba(42,58,57,0.5);">${msg}</span>`;
+    if (confirmBtn) { confirmBtn.disabled = true; confirmBtn.style.opacity = '0.4'; confirmBtn.style.cursor = 'not-allowed'; }
+  }
+  function enableConfirm() {
+    if (confirmBtn) { confirmBtn.disabled = false; confirmBtn.style.opacity = '1'; confirmBtn.style.cursor = 'pointer'; }
+  }
+
   if (!daySlots.length) {
-    row.innerHTML = `<span style="font-size:12px;color:rgba(42,58,57,0.5);"
-      data-tr="Bu gün için ders bulunmuyor" data-fr="Aucun cours ce jour">
-      ${lang === 'fr' ? 'Aucun cours ce jour' : 'Bu gün için ders bulunmuyor'}</span>`;
+    disableConfirm(lang === 'fr' ? 'Aucun cours ce jour.' : 'Bu gün için ders bulunmuyor.');
     return;
   }
 
@@ -1327,10 +1335,10 @@ async function pickDay(d, el) {
   }) : daySlots;
 
   if (!futureSlots.length) {
-    row.innerHTML = `<span style="font-size:12px;color:rgba(42,58,57,0.5);">
-      ${lang === 'fr' ? 'Aucun créneau disponible aujourd\'hui' : 'Bugün için uygun saat kalmadı'}</span>`;
+    disableConfirm(lang === 'fr' ? 'Aucun créneau disponible aujourd\'hui.' : 'Bugün için uygun saat kalmadı.');
     return;
   }
+  enableConfirm();
 
   row.innerHTML = futureSlots.map(s =>
     `<button class="slot-btn" onclick="pickSlot(this,'${s.time}')">${s.time}</button>`
