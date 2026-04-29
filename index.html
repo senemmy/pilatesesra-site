@@ -1728,12 +1728,12 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     });
   });
 
-  // Safari/mobil fallback: 2sn sonra hâlâ görünmeyenleri aç
+  // Fallback: 400ms sonra hâlâ görünmeyenleri aç
   setTimeout(() => {
     document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
       el.classList.add('is-visible');
     });
-  }, 2000);
+  }, 400);
 })();
 
 // ── INIT ─────────────────────────────────────────────────
