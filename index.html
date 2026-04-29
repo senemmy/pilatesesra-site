@@ -1708,8 +1708,18 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 
 // ── SCROLL REVEAL OBSERVER ───────────────────────────────
 (function () {
+  // 1. js-ready eklemeden önce viewport'ta olan elementleri işaretle
+  document.querySelectorAll('.reveal').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight && r.bottom > 0) {
+      el.classList.add('is-visible');
+    }
+  });
+
+  // 2. Şimdi js-ready ekle (sadece viewport dışındakiler opacity:0 olur)
   document.body.classList.add('js-ready');
 
+  // 3. Scroll sırasında geri kalanları aç
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1717,20 +1727,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
         obs.unobserve(e.target);
       }
     });
-  }, { threshold: 0.01, rootMargin: '0px 0px 0px 0px' });
+  }, { threshold: 0.01 });
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    });
-  });
-
-  // Fallback: 400ms sonra hâlâ görünmeyenleri aç
-  setTimeout(() => {
-    document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
-      el.classList.add('is-visible');
-    });
-  }, 400);
+  document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => obs.observe(el));
 })();
 
 // ── INIT ─────────────────────────────────────────────────
