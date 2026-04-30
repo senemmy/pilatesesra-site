@@ -1244,6 +1244,7 @@ function go(id, ev) {
 // ── LANGUAGE ─────────────────────────────────────────────
 function setLang(l) {
   lang = l;
+  document.documentElement.lang = l === 'fr' ? 'fr' : 'tr';
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
   document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('active');
 
