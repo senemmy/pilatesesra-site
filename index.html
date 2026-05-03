@@ -66,6 +66,36 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   }
 }
 
+/* ── ANNOUNCEMENT TICKER ── */
+.ann-ticker{
+  background:var(--gold);color:var(--dark);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 1rem;height:36px;overflow:hidden;
+  position:sticky;top:0;z-index:101;
+  font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.3px;
+}
+.ann-ticker.hidden{display:none;}
+.ann-ticker-track{
+  flex:1;overflow:hidden;position:relative;
+  mask-image:linear-gradient(to right,transparent 0%,black 5%,black 95%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,black 5%,black 95%,transparent 100%);
+}
+.ann-ticker-inner{
+  display:inline-flex;white-space:nowrap;
+  animation:ticker 28s linear infinite;
+}
+.ann-ticker-inner span{padding:0 3rem;}
+.ann-ticker-close{
+  background:none;border:none;cursor:pointer;
+  color:var(--dark);font-size:18px;line-height:1;padding:0 0 0 1rem;
+  opacity:0.7;flex-shrink:0;
+}
+.ann-ticker-close:hover{opacity:1;}
+@keyframes ticker{
+  0%{transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
 /* ── NAV ── */
 nav{
   display:flex;justify-content:space-between;align-items:center;
@@ -594,6 +624,17 @@ footer{
 </style>
 </head>
 <body>
+
+<!-- ANNOUNCEMENT TICKER -->
+<div class="ann-ticker" id="ann-ticker">
+  <div class="ann-ticker-track">
+    <div class="ann-ticker-inner">
+      <span data-tr="✦ Stüdyomuz çok yakında sizlerle buluşuyor! · Online derslerimiz Eylül ayında başlıyor · Ders programı ve detaylar en kısa sürede paylaşılacaktır · Takipte kalın ✦" data-fr="✦ Notre studio ouvre très bientôt ! · Nos cours en ligne débutent en septembre · Le programme et les détails seront bientôt partagés · Restez connectés ✦">✦ Stüdyomuz çok yakında sizlerle buluşuyor! · Online derslerimiz Eylül ayında başlıyor · Ders programı ve detaylar en kısa sürede paylaşılacaktır · Takipte kalın ✦</span>
+      <span data-tr="✦ Stüdyomuz çok yakında sizlerle buluşuyor! · Online derslerimiz Eylül ayında başlıyor · Ders programı ve detaylar en kısa sürede paylaşılacaktır · Takipte kalın ✦" data-fr="✦ Notre studio ouvre très bientôt ! · Nos cours en ligne débutent en septembre · Le programme et les détails seront bientôt partagés · Restez connectés ✦">✦ Stüdyomuz çok yakında sizlerle buluşuyor! · Online derslerimiz Eylül ayında başlıyor · Ders programı ve detaylar en kısa sürede paylaşılacaktır · Takipte kalın ✦</span>
+    </div>
+  </div>
+  <button class="ann-ticker-close" onclick="closeTicker()" aria-label="Kapat">×</button>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -1224,6 +1265,15 @@ function animateWindowScrollTo(targetY, durationMs, easeFn) {
   }
   requestAnimationFrame(step);
 }
+function closeTicker() {
+  const t = document.getElementById('ann-ticker');
+  if (t) { t.classList.add('hidden'); localStorage.setItem('tickerClosed','1'); }
+}
+if (localStorage.getItem('tickerClosed') === '1') {
+  const t = document.getElementById('ann-ticker');
+  if (t) t.classList.add('hidden');
+}
+
 function toggleMenu() {
   const hb = document.getElementById('hamburger');
   const nl = document.getElementById('nav-links');
