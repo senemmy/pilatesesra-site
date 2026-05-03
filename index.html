@@ -71,7 +71,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);
   background:var(--gold);color:var(--dark);
   display:flex;align-items:center;justify-content:space-between;
   padding:0 1rem;height:36px;overflow:hidden;
-  position:sticky;top:0;z-index:101;
   font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;letter-spacing:0.3px;
 }
 .ann-ticker.hidden{display:none;}
@@ -1266,10 +1265,6 @@ function animateWindowScrollTo(targetY, durationMs, easeFn) {
   requestAnimationFrame(step);
 }
 function closeTicker() {
-  const t = document.getElementById('ann-ticker');
-  if (t) { t.classList.add('hidden'); localStorage.setItem('tickerClosed','1'); }
-}
-if (localStorage.getItem('tickerClosed') === '1') {
   const t = document.getElementById('ann-ticker');
   if (t) t.classList.add('hidden');
 }
