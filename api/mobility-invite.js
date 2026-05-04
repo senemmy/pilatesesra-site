@@ -16,10 +16,14 @@ module.exports = async (req, res) => {
     const fromEmail = process.env.FROM_EMAIL || "PilatesEsra <noreply@pilatesesra.com>";
     const siteUrl = process.env.SITE_URL || "https://pilatesesra.com";
 
-    const recipients = (process.env.MOBILITY_RECIPIENTS || "snmmyldzz93@gmail.com")
+    // Format: "İsim:email,İsim2:email2"  Örnek: "Senem:snmmyldzz93@gmail.com"
+    const recipients = (process.env.MOBILITY_RECIPIENTS || "Senem:snmmyldzz93@gmail.com")
       .split(",")
-      .map(e => e.trim())
-      .filter(Boolean);
+      .map(e => {
+        const [name, email] = e.trim().split(":");
+        return { name: name?.trim() || email, email: email?.trim() || name };
+      })
+      .filter(r => r.email?.includes("@"));
 
     const logoImg = `<div style="margin-top:28px;text-align:center;">
       <img src="${siteUrl}/assets/images/pilates-esra-font.png" alt="PilatesEsra" style="height:80px;width:auto;opacity:0.85;"/>
@@ -33,13 +37,13 @@ module.exports = async (req, res) => {
           Katılımını bize bildirmen yeterli.
         </p>
         <div style="display:flex;gap:12px;margin-bottom:28px;">
-          <a href="${siteUrl}/mobility-response.html?r=yes"
+          <a href="${siteUrl}/api/mobility-rsvp?r=yes"
              style="display:inline-block;padding:13px 28px;background:#C09040;color:#142826;
                     text-decoration:none;font-family:ui-sans-serif,sans-serif;font-size:13px;
                     font-weight:600;letter-spacing:1px;border-radius:3px;">
             ✓ Evet, geliyorum!
           </a>
-          <a href="${siteUrl}/mobility-response.html?r=no"
+          <a href="${siteUrl}/api/mobility-rsvp?r=no"
              style="display:inline-block;padding:13px 28px;background:#f5f0e8;color:#2A3A39;
                     text-decoration:none;font-family:ui-sans-serif,sans-serif;font-size:13px;
                     font-weight:600;letter-spacing:1px;border-radius:3px;border:1px solid #d0bea0;">
@@ -52,15 +56,20 @@ module.exports = async (req, res) => {
       </div>
     `;
 
-    const results = await Promise.all(
-      recipients.map(to =>
-        resend.emails.send({
+    await Promise.all(
+      recipients.map(({ email, name }) => {
+        const enc = encodeURIComponent(email);
+        const encName = encodeURIComponent(name);
+        const personalHtml = html
+          .replace(/\?r=yes/g, `?email=${enc}&name=${encName}&r=yes`)
+          .replace(/\?r=no/g,  `?email=${enc}&name=${encName}&r=no`);
+        return resend.emails.send({
           from: fromEmail,
-          to: [to],
+          to: [email],
           subject: "PilatesEsra ile Mobility dersine var mısın? 🌿",
-          html
-        })
-      )
+          html: personalHtml
+        });
+      })
     );
 
     return json(res, 200, { ok: true, sent: recipients.length, recipients });
