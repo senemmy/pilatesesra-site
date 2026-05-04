@@ -643,7 +643,6 @@ footer{
   </button>
   <div class="nav-links" id="nav-links">
     <a href="#about" class="nav-lnk" onclick="go('about',event);closeMenu()" data-tr="Esra Kimdir"  data-fr="Qui est Esra">Esra Kimdir</a>
-    <a href="#education" class="nav-lnk" onclick="go('education',event);closeMenu()" data-tr="Eğitimler"    data-fr="Formations">Eğitimler</a>
     <a href="#classes" class="nav-lnk" onclick="go('classes',event);closeMenu()" data-tr="Dersler"      data-fr="Cours">Dersler</a>
     <a href="#planning" class="nav-lnk" onclick="go('planning',event);closeMenu()" data-tr="Program"      data-fr="Planning">Program</a>
     <a href="#reservation" class="nav-lnk" onclick="go('reservation',event);closeMenu()" data-tr="Randevu Al"   data-fr="Réserver">Randevu Al</a>
@@ -744,6 +743,68 @@ footer{
     </div>
   </div>
 </div>
+
+<!-- EDUCATION -->
+<section id="education" class="sec education">
+  <div class="sec-label reveal" data-tr="Aldığım Eğitimler" data-fr="Mes Formations">Aldığım Eğitimler</div>
+  <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Eğitim & Sertifikalar" data-fr="Formation & Certifications">Eğitim & Sertifikalar</div>
+  <p class="sec-body reveal" style="--reveal-d:160ms;margin-top:2.4rem;"
+     data-tr="Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım. Her sertifika, size en doğru, en güvenli ve en etkili antrenmanı sunmam için birer temel taşıdır."
+     data-fr="Animée par la conviction de se former en continu, j'ai complété des formations reconnues aux niveaux national et international. Chaque certification est une pierre fondatrice pour vous offrir un entraînement juste, sûr et efficace.">
+    Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım.
+  </p>
+  <div class="edu-sub-label" data-tr="Sertifikalar" data-fr="Certifications">Sertifikalar</div>
+  <div class="edu-grid">
+    <div class="edu-card reveal reveal--left" style="--reveal-d:0ms">
+      <div class="ttl">CQP ALS AGEE</div>
+      <div class="desc">Certificat de Qualification Professionnelle mention Animateur de Loisir Sportif option Activités Gymniques d'Entretien et d'Expression</div>
+    </div>
+    <div class="edu-card reveal reveal--right" style="--reveal-d:120ms">
+      <div class="ttl">Polestar Pilates</div>
+      <div class="desc" data-tr="Polestar Pilates Comprehensive Pilates Instructor sertifikası." data-fr="Certification Polestar Pilates Comprehensive Pilates Instructor.">Polestar Pilates Comprehensive Pilates Instructor</div>
+    </div>
+  </div>
+  <div class="cert-imgs reveal" style="--reveal-d:80ms">
+    <img src="assets/images/sertifika1.jpeg" alt="Sertifika 1" onclick="openLightbox(this)">
+    <img src="assets/images/sertifika2.jpeg" alt="Sertifika 2" onclick="openLightbox(this)">
+  </div>
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+  <div class="edu-sub-label" data-tr="Katıldığım Eğitimler" data-fr="Formations Suivies">Katıldığım Eğitimler</div>
+  <div class="edu-list-block reveal" style="--reveal-d:0ms">
+    <div class="block-title" data-tr="Quadroathletics Sertifikalı Eğitimleri" data-fr="Formations Certifiées Quadroathletics">Quadroathletics Sertifikalı Eğitimleri</div>
+    <ul class="edu-list two-col">
+      <li><span data-tr="Core antrenman kategorileri ve stabilizasyon" data-fr="Catégories d'entraînement du core et stabilisation">Core antrenman kategorileri ve stabilizasyon</span><span class="instr">Instructor: Dr. Joseph Esformes</span></li>
+      <li><span data-tr="Fonksiyonel bantlar yerde kuvvet antrenmanı" data-fr="Entraînement de force au sol avec élastiques fonctionnels">Fonksiyonel bantlar yerde kuvvet antrenmanı</span><span class="instr">Instructor: Patrick Herzog</span></li>
+      <li><span data-tr="Yumuşak doku yüklenmesi" data-fr="Chargement des tissus mous">Yumuşak doku yüklenmesi</span><span class="instr">Instructor: Matt Kritz</span></li>
+      <li><span data-tr="Yaşlılarda antrenman programları" data-fr="Programmes d'entraînement pour les personnes âgées">Yaşlılarda antrenman programları</span><span class="instr">Instructor: Robert Linkul</span></li>
+      <li><span data-tr="Patellofemoral ağrı" data-fr="Douleur fémoro-patellaire">Patellofemoral ağrı</span><span class="instr">Instructor: Steve Miller</span></li>
+      <li><span data-tr="FMS ile düzeltici egzersiz programları" data-fr="Programmes d'exercices correctifs avec FMS">FMS ile düzeltici egzersiz programları</span><span class="instr">Instructor: Mike Deibler</span></li>
+      <li><span data-tr="FMI over pronation &amp; corrective exercise strategies" data-fr="FMI over pronation &amp; stratégies d'exercices correctifs">FMI over pronation &amp; corrective exercise strategies</span><span class="instr">Instructor: Emrah Demirbaş</span></li>
+      <li><span data-tr="Kuvvet antrenmanları ve periyodizasyon" data-fr="Entraînements de force et périodisation">Kuvvet antrenmanları ve periyodizasyon</span> <em data-tr="(Sertifikasız online eğitim)" data-fr="(Formation en ligne non certifiée)">(Sertifikasız online eğitim)</em><span class="instr">Dr. Joseph Esformes</span></li>
+      <li><span data-tr="İleri düzey kettlebell eğitimleri" data-fr="Entraînements kettlebell avancés">İleri düzey kettlebell eğitimleri</span> <em data-tr="(Sertifikasız online eğitim)" data-fr="(Formation en ligne non certifiée)">(Sertifikasız online eğitim)</em><span class="instr">Dr. Bahman Golshaei</span></li>
+    </ul>
+  </div>
+  <div class="edu-list-block reveal" style="--reveal-d:80ms">
+    <div class="block-title" data-tr="Hareket Uzmanları Platformu Sertifikalı Eğitimleri" data-fr="Formations Certifiées — Plateforme des Experts du Mouvement">Hareket Uzmanları Platformu Sertifikalı Eğitimleri</div>
+    <ul class="edu-list two-col">
+      <li><span data-tr="Kifotik postür ve egzersiz stratejileri" data-fr="Posture cyphosique et stratégies d'exercices">Kifotik postür ve egzersiz stratejileri</span><span class="instr">Master Trainer Gizem Özcan — VOB Pilates Academy</span></li>
+      <li><span data-tr="Beyin biliş egzersiz" data-fr="Exercice cognitif cérébral">Beyin biliş egzersiz</span><span class="instr">D.O MSC Fırat Çağlar Erdem</span></li>
+      <li><span data-tr="Spor genetiğinde güncel gelişmeler" data-fr="Développements récents en génétique sportive">Spor genetiğinde güncel gelişmeler</span><span class="instr">Prof. Dr. Korkut Ulucan</span></li>
+      <li><span data-tr="Beslenme ve metabolizma sorunlarında egzersiz yöntemi" data-fr="Méthodes d'exercice pour les troubles nutritionnels et métaboliques">Beslenme ve metabolizma sorunlarında egzersiz yöntemi</span><span class="instr">Prof. Dr. İsa Sağıroğlu</span></li>
+      <li><span data-tr="Pilates tedavinin bir parçası olabilir mi?" data-fr="Le Pilates peut-il faire partie du traitement ?">Pilates tedavinin bir parçası olabilir mi?</span><span class="instr">Asst. Prof. Dr. Osman Coşkun</span></li>
+      <li><span data-tr="Spor yaralanmalarını önlemede esnekliğin yeri ve Pilates'in önemi" data-fr="La place de la souplesse et l'importance du Pilates dans la prévention des blessures sportives">Spor yaralanmalarını önlemede esnekliğin yeri ve Pilates'in önemi</span><span class="instr">Doç. Dr. İlker Kirişçi</span></li>
+      <li><span data-tr="Üst çapraz sendromunda ders planlama ve uygulama teknikleri" data-fr="Techniques de planification et d'application dans le syndrome croisé supérieur">Üst çapraz sendromunda ders planlama ve uygulama teknikleri</span><span class="instr">Işıkcan Nehir Taşkan — Serotonin Academy Master Trainer</span></li>
+      <li><span data-tr="Postürün gizli gücü; üç adımda doğru hizalanma" data-fr="Le pouvoir caché de la posture ; un alignement correct en trois étapes">Postürün gizli gücü; üç adımda doğru hizalanma</span><span class="instr">Göktuğ Şanlı</span></li>
+      <li><span data-tr="Pilatesin profesyonel sporcularda kullanımı" data-fr="L'utilisation du Pilates chez les sportifs professionnels">Pilatesin profesyonel sporcularda kullanımı</span><span class="instr">Alper Koçak</span></li>
+      <li><span data-tr="Diastasis Recti için bütünsel yaklaşım" data-fr="Approche holistique pour le Diastasis Recti">Diastasis Recti için bütünsel yaklaşım</span><span class="instr">Tılsım Okay — Pilates Academy</span></li>
+      <li><span data-tr="Egzersiz sonrası toparlanmaya yakından bakmak: Neler yapmalısın?" data-fr="Récupération post-exercice : que faut-il faire ?">Egzersiz sonrası toparlanmaya yakından bakmak: Neler yapmalısın?</span><span class="instr">Emrah Özdemir</span></li>
+      <li><span data-tr="Diyafram solunumu ile ilgili doğru bilinen yanlışlar" data-fr="Les idées reçues sur la respiration diaphragmatique">Diyafram solunumu ile ilgili doğru bilinen yanlışlar</span><span class="instr">FZT. Yelda Pekbay</span></li>
+    </ul>
+  </div>
+</section>
 
 <!-- CLASSES -->
 <section id="classes" class="sec classes-sec">
@@ -900,73 +961,6 @@ footer{
   </div>
 </section>
 
-<!-- EDUCATION -->
-<section id="education" class="sec education">
-  <div class="sec-label reveal" data-tr="Aldığım Eğitimler" data-fr="Mes Formations">Aldığım Eğitimler</div>
-  <div class="sec-title reveal" style="--reveal-d:80ms" data-tr="Eğitim & Sertifikalar" data-fr="Formation & Certifications">Eğitim & Sertifikalar</div>
-  <p class="sec-body reveal" style="--reveal-d:160ms;margin-top:2.4rem;"
-     data-tr="Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım. Her sertifika, size en doğru, en güvenli ve en etkili antrenmanı sunmam için birer temel taşıdır."
-     data-fr="Animée par la conviction de se former en continu, j'ai complété des formations reconnues aux niveaux national et international. Chaque certification est une pierre fondatrice pour vous offrir un entraînement juste, sûr et efficace.">
-    Sürekli gelişim inancıyla ulusal ve uluslararası alanda tanınan eğitimleri tamamladım.
-  </p>
-  <!-- Sertifikalar -->
-  <div class="edu-sub-label" data-tr="Sertifikalar" data-fr="Certifications">Sertifikalar</div>
-  <div class="edu-grid">
-    <div class="edu-card reveal reveal--left" style="--reveal-d:0ms">
-      <div class="ttl">CQP ALS AGEE</div>
-      <div class="desc">Certificat de Qualification Professionnelle mention Animateur de Loisir Sportif option Activités Gymniques d'Entretien et d'Expression</div>
-    </div>
-    <div class="edu-card reveal reveal--right" style="--reveal-d:120ms">
-      <div class="ttl">Polestar Pilates</div>
-      <div class="desc" data-tr="Polestar Pilates Comprehensive Pilates Instructor sertifikası." data-fr="Certification Polestar Pilates Comprehensive Pilates Instructor.">Polestar Pilates Comprehensive Pilates Instructor</div>
-    </div>
-  </div>
-  <div class="cert-imgs reveal" style="--reveal-d:80ms">
-    <img src="assets/images/sertifika1.jpeg" alt="Sertifika 1" onclick="openLightbox(this)">
-    <img src="assets/images/sertifika2.jpeg" alt="Sertifika 2" onclick="openLightbox(this)">
-  </div>
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
-    <img id="lightbox-img" src="" alt="">
-  </div>
-
-  <!-- Katıldığı Eğitimler -->
-  <div class="edu-sub-label" data-tr="Katıldığım Eğitimler" data-fr="Formations Suivies">Katıldığım Eğitimler</div>
-
-  <div class="edu-list-block reveal" style="--reveal-d:0ms">
-    <div class="block-title" data-tr="Quadroathletics Sertifikalı Eğitimleri" data-fr="Formations Certifiées Quadroathletics">Quadroathletics Sertifikalı Eğitimleri</div>
-    <ul class="edu-list two-col">
-      <li><span data-tr="Core antrenman kategorileri ve stabilizasyon" data-fr="Catégories d'entraînement du core et stabilisation">Core antrenman kategorileri ve stabilizasyon</span><span class="instr">Instructor: Dr. Joseph Esformes</span></li>
-      <li><span data-tr="Fonksiyonel bantlar yerde kuvvet antrenmanı" data-fr="Entraînement de force au sol avec élastiques fonctionnels">Fonksiyonel bantlar yerde kuvvet antrenmanı</span><span class="instr">Instructor: Patrick Herzog</span></li>
-      <li><span data-tr="Yumuşak doku yüklenmesi" data-fr="Chargement des tissus mous">Yumuşak doku yüklenmesi</span><span class="instr">Instructor: Matt Kritz</span></li>
-      <li><span data-tr="Yaşlılarda antrenman programları" data-fr="Programmes d'entraînement pour les personnes âgées">Yaşlılarda antrenman programları</span><span class="instr">Instructor: Robert Linkul</span></li>
-      <li><span data-tr="Patellofemoral ağrı" data-fr="Douleur fémoro-patellaire">Patellofemoral ağrı</span><span class="instr">Instructor: Steve Miller</span></li>
-      <li><span data-tr="FMS ile düzeltici egzersiz programları" data-fr="Programmes d'exercices correctifs avec FMS">FMS ile düzeltici egzersiz programları</span><span class="instr">Instructor: Mike Deibler</span></li>
-      <li><span data-tr="FMI over pronation &amp; corrective exercise strategies" data-fr="FMI over pronation &amp; stratégies d'exercices correctifs">FMI over pronation &amp; corrective exercise strategies</span><span class="instr">Instructor: Emrah Demirbaş</span></li>
-      <li><span data-tr="Kuvvet antrenmanları ve periyodizasyon" data-fr="Entraînements de force et périodisation">Kuvvet antrenmanları ve periyodizasyon</span> <em data-tr="(Sertifikasız online eğitim)" data-fr="(Formation en ligne non certifiée)">(Sertifikasız online eğitim)</em><span class="instr">Dr. Joseph Esformes</span></li>
-      <li><span data-tr="İleri düzey kettlebell eğitimleri" data-fr="Entraînements kettlebell avancés">İleri düzey kettlebell eğitimleri</span> <em data-tr="(Sertifikasız online eğitim)" data-fr="(Formation en ligne non certifiée)">(Sertifikasız online eğitim)</em><span class="instr">Dr. Bahman Golshaei</span></li>
-    </ul>
-  </div>
-
-  <div class="edu-list-block reveal" style="--reveal-d:80ms">
-    <div class="block-title" data-tr="Hareket Uzmanları Platformu Sertifikalı Eğitimleri" data-fr="Formations Certifiées — Plateforme des Experts du Mouvement">Hareket Uzmanları Platformu Sertifikalı Eğitimleri</div>
-    <ul class="edu-list two-col">
-      <li><span data-tr="Kifotik postür ve egzersiz stratejileri" data-fr="Posture cyphosique et stratégies d'exercices">Kifotik postür ve egzersiz stratejileri</span><span class="instr">Master Trainer Gizem Özcan — VOB Pilates Academy</span></li>
-      <li><span data-tr="Beyin biliş egzersiz" data-fr="Exercice cognitif cérébral">Beyin biliş egzersiz</span><span class="instr">D.O MSC Fırat Çağlar Erdem</span></li>
-      <li><span data-tr="Spor genetiğinde güncel gelişmeler" data-fr="Développements récents en génétique sportive">Spor genetiğinde güncel gelişmeler</span><span class="instr">Prof. Dr. Korkut Ulucan</span></li>
-      <li><span data-tr="Beslenme ve metabolizma sorunlarında egzersiz yöntemi" data-fr="Méthodes d'exercice pour les troubles nutritionnels et métaboliques">Beslenme ve metabolizma sorunlarında egzersiz yöntemi</span><span class="instr">Prof. Dr. İsa Sağıroğlu</span></li>
-      <li><span data-tr="Pilates tedavinin bir parçası olabilir mi?" data-fr="Le Pilates peut-il faire partie du traitement ?">Pilates tedavinin bir parçası olabilir mi?</span><span class="instr">Asst. Prof. Dr. Osman Coşkun</span></li>
-      <li><span data-tr="Spor yaralanmalarını önlemede esnekliğin yeri ve Pilates'in önemi" data-fr="La place de la souplesse et l'importance du Pilates dans la prévention des blessures sportives">Spor yaralanmalarını önlemede esnekliğin yeri ve Pilates'in önemi</span><span class="instr">Doç. Dr. İlker Kirişçi</span></li>
-      <li><span data-tr="Üst çapraz sendromunda ders planlama ve uygulama teknikleri" data-fr="Techniques de planification et d'application dans le syndrome croisé supérieur">Üst çapraz sendromunda ders planlama ve uygulama teknikleri</span><span class="instr">Işıkcan Nehir Taşkan — Serotonin Academy Master Trainer</span></li>
-      <li><span data-tr="Postürün gizli gücü; üç adımda doğru hizalanma" data-fr="Le pouvoir caché de la posture ; un alignement correct en trois étapes">Postürün gizli gücü; üç adımda doğru hizalanma</span><span class="instr">Göktuğ Şanlı</span></li>
-      <li><span data-tr="Pilatesin profesyonel sporcularda kullanımı" data-fr="L'utilisation du Pilates chez les sportifs professionnels">Pilatesin profesyonel sporcularda kullanımı</span><span class="instr">Alper Koçak</span></li>
-      <li><span data-tr="Diastasis Recti için bütünsel yaklaşım" data-fr="Approche holistique pour le Diastasis Recti">Diastasis Recti için bütünsel yaklaşım</span><span class="instr">Tılsım Okay — Pilates Academy</span></li>
-      <li><span data-tr="Egzersiz sonrası toparlanmaya yakından bakmak: Neler yapmalısın?" data-fr="Récupération post-exercice : que faut-il faire ?">Egzersiz sonrası toparlanmaya yakından bakmak: Neler yapmalısın?</span><span class="instr">Emrah Özdemir</span></li>
-      <li><span data-tr="Diyafram solunumu ile ilgili doğru bilinen yanlışlar" data-fr="Les idées reçues sur la respiration diaphragmatique">Diyafram solunumu ile ilgili doğru bilinen yanlışlar</span><span class="instr">FZT. Yelda Pekbay</span></li>
-    </ul>
-  </div>
-</section>
 
 <!-- PLANNING -->
 <section id="planning" class="sec planning-sec">
