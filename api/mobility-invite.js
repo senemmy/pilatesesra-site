@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
       <div style="font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.7;max-width:520px;margin:0 auto;">
         <h2 style="color:#142826;margin:0 0 18px;font-size:22px;">PilatesEsra ile Mobility dersine var mısın? 🌿</h2>
         <p style="margin:0 0 24px;color:#2A3A39;font-size:15px;">
-          Bu haftaki <b>Mobility</b> dersinde seni görmek çok güzel olur!<br/>
+          Bu haftaki <b>Mobility</b> dersine hazır mısın?<br/>
           Katılımını bize bildirmen yeterli.
         </p>
         <div style="display:flex;gap:12px;margin-bottom:28px;">
