@@ -33,13 +33,13 @@ module.exports = async (req, res) => {
           Katılımını bize bildirmen yeterli.
         </p>
         <div style="display:flex;gap:12px;margin-bottom:28px;">
-          <a href="${siteUrl}/#reservation"
+          <a href="${siteUrl}/mobility-response.html?r=yes"
              style="display:inline-block;padding:13px 28px;background:#C09040;color:#142826;
                     text-decoration:none;font-family:ui-sans-serif,sans-serif;font-size:13px;
                     font-weight:600;letter-spacing:1px;border-radius:3px;">
             ✓ Evet, geliyorum!
           </a>
-          <a href="mailto:pilatesesrafr@gmail.com?subject=Mobility%20dersi%20-%20Kat%C4%B1lamayaca%C4%B1%C4%B1m&body=Merhaba%2C%20bu%20haftaki%20Mobility%20dersine%20maalesef%20kat%C4%B1lamayaca%C4%B1%C4%B1m."
+          <a href="${siteUrl}/mobility-response.html?r=no"
              style="display:inline-block;padding:13px 28px;background:#f5f0e8;color:#2A3A39;
                     text-decoration:none;font-family:ui-sans-serif,sans-serif;font-size:13px;
                     font-weight:600;letter-spacing:1px;border-radius:3px;border:1px solid #d0bea0;">

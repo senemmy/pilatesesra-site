@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PilatesEsra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{--dark:#142826;--teal:#2E8B86;--gold:#C09040;--cream:#F5F0E8;}
+  body{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;background:var(--cream);
+    font-family:'DM Sans',sans-serif;padding:2rem;text-align:center;
+  }
+  .logo{
+    font-family:'Cormorant Garamond',serif;font-size:28px;
+    font-style:italic;letter-spacing:3px;color:var(--dark);margin-bottom:2.5rem;
+  }
+  .logo span{color:var(--gold);}
+  .icon{font-size:48px;margin-bottom:1.2rem;}
+  h1{
+    font-family:'Cormorant Garamond',serif;font-size:36px;
+    color:var(--dark);margin-bottom:1rem;line-height:1.2;
+  }
+  p{font-size:15px;color:#2A3A39;opacity:0.8;margin-bottom:2rem;line-height:1.8;}
+  a.btn{
+    display:inline-block;padding:0.85rem 2rem;
+    background:var(--gold);color:var(--dark);text-decoration:none;
+    font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    font-weight:500;border-radius:2px;transition:background 0.2s;
+  }
+  a.btn:hover{background:#D4AA62;}
+</style>
+</head>
+<body>
+<div class="logo">Pilates<span>Esra</span></div>
+<div id="content"></div>
+<script>
+  const r = new URLSearchParams(location.search).get('r');
+  const el = document.getElementById('content');
+  if (r === 'yes') {
+    el.innerHTML = `
+      <div class="icon">🌿</div>
+      <h1>Salı akşamı görüşmek üzere!</h1>
+      <p>Seni bekliyoruz. Harika bir ders olacak!</p>
+      <a href="https://pilatesesra.com" class="btn">Anasayfaya Dön</a>
+    `;
+  } else {
+    el.innerHTML = `
+      <div class="icon">💚</div>
+      <h1>Seni özleyeceğiz!</h1>
+      <p>Bir sonraki derste görüşürüz. 🌿</p>
+      <a href="https://pilatesesra.com" class="btn">Anasayfaya Dön</a>
+    `;
+  }
+</script>
+</body>
+</html>
