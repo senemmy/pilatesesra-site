@@ -8,5 +8,9 @@
       "path": "/api/weekly-report",
       "schedule": "0 18 * * *"
     }
+    ,{
+      "path": "/api/mobility-invite",
+      "schedule": "30 17 * * 2"
+    }
   ]
 }
